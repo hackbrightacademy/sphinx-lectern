@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+sphinx-testing = "*"
+pytest = "*"
+beautifulsoup4 = "*"
+
+[packages]
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+build = "sphinx-build -b revealjs tests/examples/test_revealjs tests/examples/test_revealjs/_build"
+test = "pytest -h"

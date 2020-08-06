@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1>"/>
+    <title>{{ title }} | {{ docstitle|e }}</title>
+
+    <link href="{{ pathto('_static/reveal.css', 1) }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ pathto('_static/pygments.css', 1) }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    {% block document %}
+      <div class="reveal">
+        <div class="slides">
+          <section>
+            <h2>{{ title }}</h2>
+            <div class="event">{{ version }}</div>
+          </section>
+          {{ body }}
+        </div>
+        <footer id="slide-footer"></footer>
+      </div>
+    {% endblock document %}
+
+    <script src="{{ pathto('_static/revealjs/slides.js', 1)}}"></script>
+  </body>
+</html>

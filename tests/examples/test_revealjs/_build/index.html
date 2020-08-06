@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1>"/>
+    <title>Example Lecture | Python  documentation</title>
+
+    <link href="_static/reveal.css" rel="stylesheet" type="text/css"/>
+    <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+    <link href="_static/slides.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    
+      <div class="reveal">
+        <div class="slides">
+          <section>
+            <h2>Example Lecture</h2>
+            <div class="event"></div>
+          </section>
+          <section ><section><h2>Section Heading</h2>
+</section><section ><h3>Slide Title</h3>
+<ul class="simple">
+<li><p>Notice how <cite>h2</cite> create title slides</p></li>
+<li><p>Use these to divide a lecture by its topics</p></li>
+</ul>
+</section><section ><h3>Another Slide</h3>
+<p>Each <cite>h3</cite> creates a new slide</p>
+<h4>Subsection</h4>
+<p><cite>h4</cite> will stay on the same slide though</p>
+</section><section ><h3>Newslide</h3>
+<p>Another way to create a new slide is with <cite>newslide</cite>:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">newslide</span><span class="p">::</span>
+</pre></div>
+</div>
+</section><section data-localtitle=""><h3>Newslide</h3>
+<p><cite>newslide</cite> does not take any children, so don’t indent!</p>
+</section><section ><p>An interslide</p>
+</section></section><section ><section><h2>One More Thing</h2>
+</section><section ><h3>One More Thing</h3>
+<p>You <em>are</em> required to make an <cite>h3</cite> right after an <cite>h2</cite>.</p>
+<p>Don’t worry, these headers won’t repeat in handouts.</p>
+</section></section><section ><section><h2>Transitions</h2>
+</section><section ><h3>Incremental Directive</h3>
+<div class="fragment docutils container">
+<p>Make this appear on <cite>Space</cite></p>
+</div>
+<div class="fragment docutils container">
+<p>Then make this one appear</p>
+</div>
+</section><section ><h3>Increment Ea. Item</h3>
+<p>This works with any list &amp; will cause each item &#64; top-level <a href="#id2"><span class="problematic" id="id3">|reveal-br|</span></a>
+to appear one at a time</p>
+<ul class="simple">
+<li class="fragment"><p>One</p></li>
+<li class="fragment"><p>Two</p></li>
+<li class="fragment"><p>Three</p></li>
+</ul>
+</section><section data-localtitle=""><h3>Increment Ea. Item</h3>
+<ol class="arabic simple">
+<li class="fragment"><p>One</p></li>
+<li class="fragment"><p>Two</p></li>
+<li class="fragment"><p>Three</p></li>
+</ol>
+</section><section data-localtitle=""><h3>Increment Ea. Item</h3>
+<dl>
+<div class="fragment docutils container">
+<dt>Def one</dt><dd><p>def</p>
+</dd>
+</div>
+<div class="fragment docutils container">
+<dt>def two</dt><dd><p>hi</p>
+</dd>
+</div>
+</dl>
+</section><section data-localtitle=""><h3>Increment Ea. Item</h3>
+<ul class="simple">
+<li class="fragment"><p>Children will appear too</p>
+<ul>
+<li><p>Child</p></li>
+<li><p>Child</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Hi</p></li>
+<li class="fragment"><p>Hello</p>
+<ul>
+<li><p>Child</p></li>
+</ul>
+</li>
+</ul>
+</section><section ><h3>Increment Every Item</h3>
+<p>To increment every item, no matter how far they’re nested, use</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">incr</span><span class="p">::</span> item
+</pre></div>
+</div>
+</section><section data-localtitle=""><h3>Increment Every Item</h3>
+<ul class="simple">
+<li class="fragment"><p>Greetings</p>
+<ul>
+<li><p>Hi</p></li>
+<li><p>Hello</p></li>
+</ul>
+</li>
+<li class="fragment"><p>Goodbyes</p>
+<ul>
+<li><p>Goodbye</p></li>
+<li><p>Bye</p>
+<ul>
+<li><p>Buh-bye</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section></section>
+        </div>
+        <footer id="slide-footer"></footer>
+      </div>
+    
+
+    <script src="_static/revealjs/slides.js"></script>
+  </body>
+</html>
