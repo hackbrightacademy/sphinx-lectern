@@ -14,9 +14,7 @@ templates_path = ['_templates']
 html_theme_path = [os.path.abspath('./../../../themes')]
 
 extensions = [
-    'sphinxbootcamp.writers.revealjs',
-    'sphinxbootcamp.revealjs',
-    'sphinxbootcamp.rsturil',
+    'sphinxbootcamp'
 ]
 
 revealjs_theme = 'revealjs'
