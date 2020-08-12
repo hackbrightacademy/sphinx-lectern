@@ -73,8 +73,11 @@ reveal_br = """
 
 
 def add_rst_prolog(app, config):
-    config.rst_prolog += colors + symbols + text_editor_substitutions + reveal_br
+  if not config.rst_prolog:
+    config.rst_prolog = ''
+
+  config.rst_prolog += colors + symbols + text_editor_substitutions + reveal_br
 
 
 def setup(app: Sphinx) -> None:
-  app.connect('config-inited', add_rst_prolog)
+    app.connect('config-inited', add_rst_prolog)

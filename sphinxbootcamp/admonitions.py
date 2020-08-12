@@ -1,6 +1,6 @@
 """Monkeypatch default admonition directives so they all require titles."""
 
-from typing import List
+from typing import List, Optional, Callable
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from sphinx.application import Sphinx
@@ -13,7 +13,7 @@ class BaseAdmonition(Directive):
     has_content = True
     required_arguments = 1
 
-    node_class = None
+    node_class: Optional
 
     def get_title(self) -> None:
         """By default, this returns the first, required argument.

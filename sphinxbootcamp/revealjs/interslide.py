@@ -1,3 +1,21 @@
+"""Interslide.
+
+Use this directive to create interslides. These are slides that can
+be used for intermissions, interjections, or transitions. They're
+slides that can contain content but don't have their own title.
+
+Also, they're not rendered in lecture handouts, so don't use
+them to display critical information that should be included in the
+lecture notes!
+
+Contains:
+    - interslide
+    - Interslide
+    - visit_interslide
+    - depart_interslide
+    - ignore_interslide
+"""
+
 from typing import List
 from sphinx.application import Sphinx
 
@@ -6,45 +24,11 @@ from ._slides import BaseSlide
 
 
 class interslide(nodes.General, nodes.Element):
-    pass
+    """Interslide node."""
 
 
 class Interslide(BaseSlide):
-    """Interslide directive for lecture slides.
-
-    Interslides are slides that can be used for intermissions, interjections,
-    or transitions. They are slides that can contain content but do not
-    have their own titles.
-
-    Interslides are not rendered in lecture handouts so they should **not**
-    be used to display critical materials that students should know.
-
-    Example:
-
-        The Search for Cattitude
-        ------------------------
-
-        Let's refactor the cat class
-
-        .. interslide::
-        :background: red
-        :transition: fade
-
-        Hungry cat...
-
-        .. image:: cat.jpg
-
-        Time for example code...
-
-    You can also add an image background:
-
-    .. interslide::
-    :background: cat.jpg
-
-    For more information about the `transition` and `transition-speed`
-    options you can set on an interslide, see
-    https://github.com/hakimel/reveal.js/#slide-transitions.
-    """
+    """Interslide directive."""
 
     has_content = True
 

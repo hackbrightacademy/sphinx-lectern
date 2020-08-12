@@ -1,41 +1,11 @@
 """Incremental directive.
 
-This will add a transition to its children so they appear one-at-a-time.
+This will add a transition to its children so they appear one at a time.
 ``incremental`` is aliased to ``incr``, so you can use either name to refer to
 this directive.
 
-Example:
-    To make one thing appear::
-
-        .. incremental:: one
-
-          Make this appaer
-    
-    Or, with the alias::
-
-        .. incr:: one
-
-          Make this appear
-
-    Make each item in a list appear one-at-a-time::
-
-        .. incr:: item
-
-          - One
-
-          - Two
-
-    This will work on ordered lists, unordered lists, and definition lists.
-
-    To make list items and children appear one-at-a-time::
-
-        .. incr:: nest
-
-          - One
-
-            - Two
-
-          - Three
+Contents:
+    - Incremental
 """
 
 from typing import List
@@ -80,13 +50,17 @@ class Incremental(Directive):
             )
 
     def increment_list_items(self, node: nodes.Sequential) -> None:
+        """Add class 'fragment' to Sequential node's children."""
+
         for list_item in node.children[0].children:
             try:
                 list_item['classes'] += ['fragment']
             except TypeError:
                 continue
 
-    def increment_nested_list_items(self, node: nodes.Node) -> None:
+    def increment_nested_list_items(self, node: nodes.Sequential) -> None:
+        """Add class 'fragment' to a Sequential node's descendants."""
+
         def traverse_condition(node: nodes.Node) -> bool:
             return (isinstance(node, nodes.list_item) or
                     isinstance(node, nodes.term) or
@@ -97,6 +71,8 @@ class Incremental(Directive):
 
     @staticmethod
     def contain_definition_list_items(dl_node: nodes.definition_list) -> None:
+        """Group definitions and terms in containers."""
+
         dl_children = []
         for def_list_item in dl_node.children:
             container = nodes.container()

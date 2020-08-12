@@ -1,3 +1,26 @@
+"""Newslide.
+
+Use this to create a new slide. Content will resume on the new
+slide.
+
+Pass in an argument to give the new slide a title::
+
+    .. newslide:: Title
+
+If you prepend your title with a '+', the original title will be
+prepended to the new slide's title::
+
+    .. newslid:: *(cont.)
+
+With no arguments, the new slide will have the same title as its
+parent slide.
+
+Contents:
+    - newslide
+    - Newslide
+    - process_newslides
+"""
+
 from typing import List
 from sphinx.application import Sphinx
 from docutils import nodes
@@ -5,27 +28,12 @@ from ._slides import BaseSlide
 
 
 class newslide(nodes.General, nodes.Element):
-    pass
+    """Newslide node."""
+
 
 
 class Newslide(BaseSlide):
-    """Newslide directive for lecture slides.
-
-    Create a break in a section and create a new slide. Content will
-    continue on this new slide.
-
-    Pass in an argument to give the new slide a title:
-
-        .. newslide:: Title
-
-    If you prepend your title with a '+', the original title will be
-    prepended to the new slide's title:
-
-        .. newslid:: *(cont.)
-
-    With no arguments, the new slide will have the same title as its
-    parent slide.
-    """
+    """Newslide directive."""
 
     optional_arguments = 1
     final_argument_whitespace = True
@@ -46,6 +54,8 @@ class Newslide(BaseSlide):
 def process_newslides(app: Sphinx,
                       doctree,
                       fromdocname: str) -> None:
+    """Process newslides after doctree is resolved."""
+
     while doctree.traverse(newslide):
         newslide_node = doctree.next_node(newslide)
         if app.builder.name != 'revealjs':
