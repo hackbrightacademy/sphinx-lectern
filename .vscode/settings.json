@@ -1,0 +1,5 @@
+{
+  "django.snippets.use": false,
+  "pythonIndent.trimLinesWithOnlyWhitespace": true,
+  "python.pythonPath": "~/.local/share/virtualenvs/sphinx-bootcamp-Rr7A_qg-/bin/python"
+}
