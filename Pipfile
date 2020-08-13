@@ -15,5 +15,6 @@ pylint = "*"
 python_version = "3.8"
 
 [scripts]
-build = "sphinx-build -b revealjs tests/examples/test_revealjs tests/examples/test_revealjs/_build"
+build = "python3 setup.py sdist bdist_wheel"
+build_revealjs = "sphinx-build -b revealjs tests/examples/test_revealjs tests/examples/test_revealjs/_build"
 test = "pytest tests"
