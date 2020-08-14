@@ -5,8 +5,9 @@ setuptools.setup(
     version='1.0.0',
     author='Ashley Trinh',
     author_email='ashley@hackbrightacademy.com',
+    url='https://github.com/bootcampgang/sphinx-lectern',
     python_requires='>=3.6',
     packages=setuptools.find_packages(include=['sphinxlectern',
                                                'sphinxlectern.*']),
-    url='https://github.com/bootcampgang/sphinx-lectern'
+    entry_points={'sphinx.html_themes': ['revealjs = sphinxlectern.themes']}
 )
