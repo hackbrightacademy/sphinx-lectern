@@ -11,10 +11,9 @@ sys.path.append(os.path.abspath('./../../..'))
 
 master_doc = 'index'
 templates_path = ['_templates']
-html_theme_path = [os.path.abspath('./../../../themes')]
 
 extensions = [
-    'sphinxbootcamp'
+    'sphinxlectern'
 ]
 
 revealjs_theme = 'revealjs'
