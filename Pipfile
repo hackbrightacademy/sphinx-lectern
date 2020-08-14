@@ -7,7 +7,7 @@ verify_ssl = true
 sphinx-testing = "*"
 pytest = "*"
 beautifulsoup4 = "*"
-pylint = "*"
+mypy = "*"
 
 [packages]
 
