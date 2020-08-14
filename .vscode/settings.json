@@ -1,12 +1,15 @@
 {
   "django.snippets.use": false,
   "pythonIndent.trimLinesWithOnlyWhitespace": true,
-  "python.pythonPath": "~/.local/share/virtualenvs/sphinx-bootcamp-Rr7A_qg-/bin/python",
+  "python.pythonPath": "/Users/ashley/.local/share/virtualenvs/sphinx-lectern-f1HpN1gk/bin/python",
   "files.exclude": {
     ".pytest_cache": true,
     ".vscode": true,
     "*.egg-info": true,
     "build": true,
     "dist": true
-  }
+  },
+  "python.linting.pylintEnabled": false,
+  "python.linting.mypyEnabled": true,
+  "python.linting.enabled": true
 }
