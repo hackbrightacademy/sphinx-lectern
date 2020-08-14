@@ -2,29 +2,19 @@
 
 from sphinx.application import Sphinx
 
-from . import (
-    admonitions,
-    doctest,
-    fillin,
-    graphviz,
-    pdf,
-    togglereveal,
-    rstutil,
-    revealjs as revealjs_ext
-)
+from . import (common,
+               handouts,
+               revealjs,
+               themes,
+               writers,
+               )
 from .transformers import references
-from .writers import handouts, revealjs
 
 
 def setup(app: Sphinx) -> None:
+    common.setup(app)
     handouts.setup(app)
     revealjs.setup(app)
-    admonitions.setup(app)
-    doctest.setup(app)
-    fillin.setup(app)
-    graphviz.setup(app)
-    pdf.setup(app)
-    togglereveal.setup(app)
-    rstutil.setup(app)
-    revealjs_ext.setup(app)
+    themes.setup(app)
+    writers.setup(app)
     references.setup(app)
