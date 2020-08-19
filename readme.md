@@ -2,6 +2,16 @@
 
 Extensions for building lecture handouts & slides with Sphinx.
 
+## Install
+
+```shell
+# With pipenv
+pipenv install -e git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
+
+# With pip
+pip install git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
+```
+
 ## Todo
 
 - [x] Add `setup.py`
@@ -9,4 +19,5 @@ Extensions for building lecture handouts & slides with Sphinx.
 - [x] Theme `package.json` files
 - [ ] Tests
 - [ ] Docs (lol)
-- [ ] How to set up
+- [x] How to install
+- [ ] How to set up Sphinx
