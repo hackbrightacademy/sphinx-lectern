@@ -9,5 +9,6 @@ setuptools.setup(
     python_requires='>=3.6',
     packages=setuptools.find_packages(include=['sphinxlectern',
                                                'sphinxlectern.*']),
-    entry_points={'sphinx.html_themes': ['revealjs = sphinxlectern.themes']}
+    entry_points={'sphinx.html_themes': ['revealjs = sphinxlectern.themes',
+                                         'handouts = sphinxlectern.themes']}
 )
