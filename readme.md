@@ -4,7 +4,9 @@ Extensions for building lecture handouts & slides with Sphinx.
 
 ## Todo
 
-- [ ] Add `setup.py`
-- [ ] Handouts theme
-- [ ] Theme `package.json` files
+- [x] Add `setup.py`
+- [x] Handouts theme
+- [x] Theme `package.json` files
 - [ ] Tests
+- [ ] Docs (lol)
+- [ ] How to set up
