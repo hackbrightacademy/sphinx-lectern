@@ -2,11 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{{ title }} | {{ docstitle|e }}</title>
-
-    <link href="{{ pathto('_static/reveal.css', 1) }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ pathto('_static/pygments.css', 1) }}" rel="stylesheet" type="text/css"/>
     <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css"/>
   </head>
   <body>
@@ -23,6 +20,6 @@
       </div>
     {% endblock document %}
 
-    <script src="{{ pathto('_static/revealjs/slides.js', 1)}}"></script>
+    <script src="{{ pathto('_static/main.js', 1)}}"></script>
   </body>
 </html>
