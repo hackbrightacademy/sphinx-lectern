@@ -1,0 +1,13 @@
+@media print {
+  main {
+    margin: 1in;
+  }
+
+  .section > .section, table {
+    page-break-inside: avoid;
+  }
+
+  main > .section, .toctree-wrapper.compound > .section {
+    page-break-after: always;
+  }
+}

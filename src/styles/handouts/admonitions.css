@@ -1,0 +1,132 @@
+/* Admonitions */
+
+/* These colors are borrowed from Bulma's color
+ * scheme: https://bulma.io/documentation/elements/button/
+ */
+.note {
+  --titleBg: #1e81c4;
+  --titleColor: white;
+  --titlePrefix: 'Note: ';
+}
+
+.topic {
+  --titleBg: #0e993e;
+  --titleColor: white;
+  --titlePrefix: '';
+}
+
+.hint {
+  --titleBg: #0e993e;
+  --titleColor: white;
+  --titlePrefix: 'Hint: ';
+}
+
+.warning {
+  --titleBg: #f14668;
+  --titleColor: white;
+  --titlePrefix: 'Warning: ';
+}
+
+.togglereveal {
+  --titleBg: var(--darkGray);
+}
+
+.console {
+  --bg: #333;
+  --color: var(--lightGray);
+}
+
+/* For backwards-compatibility */
+.hover-reveal.topic {
+  --titlePrefix: 'Hint: ';
+}
+
+.admonition,
+.note,
+.sidebar,
+.warning,
+.topic,
+.hint {
+  border: 1px solid var(--titleBg);
+
+  & > p:first-child {
+    background: var(--titleBg);
+    color: var(--titleColor);
+
+    &::before {
+      content: var(--titlePrefix);
+    }
+  }
+}
+
+.togglereveal {
+  border: 1px solid var(--titleBg);
+}
+
+.admonition,
+.topic,
+.togglereveal {
+  margin: 1em 0.5em;
+  padding-bottom: 0.25em;
+  border-radius: var(--borderRadius);
+}
+
+.admonition-body {
+  padding: 0 1em;
+}
+
+.admonition,
+.topic {
+  & > p:first-child {
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+    margin: 0;
+
+    code {
+      color: inherit;
+    }
+  }
+}
+
+.hover-reveal {
+  &::before {
+    content: 'Hover to reveal';
+    position: absolute;
+    font-size: 0.9em;
+    font-style: italic;
+  }
+
+  &:hover::before {
+    content: '';
+  }
+
+  & > :not(.topic-title) {
+    visibility: hidden;
+  }
+
+  &:hover > :not(.topic-title) {
+    visibility: visible !important;
+  }
+}
+
+.hover-reveal.topic::before {
+  transform: translate(1em, 40px);
+}
+
+.hint,
+.togglereveal {
+  & > details {
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+
+    & > summary::after {
+      content: 'Click to expand';
+      font-size: 0.9em;
+      font-style: italic;
+    }
+  }
+
+  & > details[open] > summary::after {
+    content: 'Click to hide';
+  }
+}

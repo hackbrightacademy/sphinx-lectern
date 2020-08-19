@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Source+Sans+Pro:400,400i,700,700i,600,600i&display=swap');
+@import './common/vars.css';
+@import './common/theme.css';
+@import './common/print.css';
+@import './handouts/admonitions.css';
+@import './handouts/fillin.css';
+
+/* Sidebar */
+#page-toc {
+  --bg: var(--darkGray);
+  --color: var(--gray);
+}
+
+/* Sidebar header */
+#page-header {
+  --bg: var(--brandColor);
+  --color: white;
+}
+
+#page-footer {
+  --bg: var(--darkGray);
+  --color: var(--gray);
+}
+
+/*
+ * LAYOUT
+ */
+
+#handouts-container {
+  overflow-x: none;
+  display: grid;
+  grid-template:
+    'sidebar-head' 150px
+    'content' minmax(100vh, auto)
+    'footer' auto / 100%;
+
+  @media only print {
+    grid-template:
+      'content' minmax(100vh, auto)
+      'footer' auto / 100%;
+  }
+
+  @media (min-width: 1135px) {
+    grid-template:
+      'sidebar-head content' 150px
+      'sidebar content' minmax(100vh, auto)
+      'footer content' 10px / 275px 860px;
+  }
+}
+
+#page-header, #page-toc {
+  padding: 1em;
+}
+
+#page-header {
+  grid-area: sidebar-head;
+  text-align: center;
+  color: var(--color);
+  background: var(--bg);
+
+  @media only print {
+    display: none;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  #project-title {
+    font-size: 0.9em;
+  }
+
+  #page-title {
+    font-size: 1.1em;
+  }
+
+  #backlink {
+    font-size: 0.7em;
+  }
+}
+
+#page-footer {
+  font-size: 10px;
+  display: flex;
+  align-items: flex-end;
+  grid-area: footer;
+
+  p {
+    margin: 5px;
+  }
+
+  @media(min-width: 1135px) {
+    background: var(--bg);
+    color: var(--color);
+  }
+}
+
+#page-toc {
+  display: none;
+  background: var(--bg);
+  color: var(--color);
+
+  @media (min-width: 1135px) {
+    display: block;
+    grid-area: sidebar;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  li {
+    margin: 0.5rem 0;
+  }
+
+  & > ul > li > ul > li > ul {
+    margin-bottom: 1em;
+    padding-left: 1em;
+    font-size: 0.8em;
+  }
+
+  & > ul > li > a {
+    display: none;
+  }
+}
+
+#page-content {
+  background: url('hb-logo.png') no-repeat 100% 1em / 2em;
+  margin: 3%;
+  line-height: 1.4em;
+  grid-area: content;
+
+  @media (min-width: 768px) {
+    margin: 2em 7%;
+  }
+
+  @media (min-width: 1135px) {
+    margin: 2em 80px;
+  }
+
+  & > .section,
+  & > .section > .section {
+    margin: 2em 0;
+  }
+}
+
+#page-footer {
+  grid-area: footer;
+  height: 4rem;
+}
+
+.raw-revealjs {
+  display: none !important;
+}
+
+.chapter-nav {
+  display: grid;
+  grid-template: '1 2 3';
+
+  .chapter-nav-title {
+    text-align: center;
+  }
+
+  .chapter-next {
+    text-align: right;
+  }
+}

@@ -1,0 +1,23 @@
+input.fillin {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid black;
+
+  &:hover {
+    border-top: 1px solid var(--gray);
+    border-left: 1px solid var(--gray);
+    border-right: 1px solid var(--gray);
+  }
+
+  &:focus {
+    box-shadow: 0 0 1px 1px var(--lightBlue) inset;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+}
+

@@ -1,0 +1,35 @@
+:root {
+  /* Use camelCase here because it works better with most autocomplete engine */
+  --fontSans: 'Source Sans Pro', sans-serif;
+  --fontMono: 'Inconsolata', monospace;
+  --borderRadius: 3px;
+  --lightGray: #f5f5f5;
+  --gray: #ddd;
+  --darkGray: #58595b;
+  --brandColor: #EE1431;
+  --hllBg: #fff5a3;
+  --warning: #d73a4f;
+  --green: #007020;
+  --lightGreen: #66ca66;
+  --red: var(--brandColor);
+  --lightRed: #FF8686;
+  --orange: #f07100;
+  --lightOrange: orange;
+  --tan: #997319;
+  --lightTan: tan;
+  --blue: #1743aa;
+  --lightBlue: #88bcff;
+  --purple: #a22de4;
+  --lightPurple: #d995ff;
+  --yellow: #ecbc00;
+  --lightYellow: #ffe553;
+  --textGray: #8b909b;
+  --titleBg: var(--darkGray);
+  --titleColor: white;
+  --titlePrefix: '';
+}
+
+.console {
+  --bg: #333;
+  --color: var(--lightGray);
+}
