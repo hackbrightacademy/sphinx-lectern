@@ -8,8 +8,17 @@
   <a href="https://fellowship.hackbrightacademy.com/materials/slides/demo/">slides</a>
 </p>
 
+## 😎 Features
 
-## Install
+- Reveal.js!
+- Automatic syntax highlighting with Pygments
+- Show examples of console/terminal output
+- Include code from external files
+- Hint boxes!
+- Render diagrams, graphs, math equations
+- ...and more!
+
+## ⚡️ Install
 
 ```shell
 # With pipenv
