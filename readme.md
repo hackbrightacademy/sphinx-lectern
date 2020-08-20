@@ -1,4 +1,4 @@
-# sphinxbootcamp
+# sphinx-lectern
 
 Extensions for building lecture handouts & slides with Sphinx.
 
