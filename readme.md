@@ -1,6 +1,13 @@
-# sphinx-lectern
+<h1 align="center">
+  𓂉 sphinx-lectern<br>
+</h1>
+<p align="center"><sub>Extensions for building lecture handouts & slides with <a href="https://www.sphinx-doc.org/en/master">Sphinx</a>.</sub></p>
 
-Extensions for building lecture handouts & slides with Sphinx.
+<p align="center">
+  Start with one document ➡️ instantly generate <a href="https://fellowship.hackbrightacademy.com/materials/lectures/demo/">lecture notes</a> <b>and</b>
+  <a href="https://fellowship.hackbrightacademy.com/materials/slides/demo/">slides</a>
+</p>
+
 
 ## Install
 
@@ -11,13 +18,3 @@ pipenv install -e git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#
 # With pip
 pip install git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
 ```
-
-## Todo
-
-- [x] Add `setup.py`
-- [x] Handouts theme
-- [x] Theme `package.json` files
-- [ ] Tests
-- [ ] Docs (lol)
-- [x] How to install
-- [ ] How to set up Sphinx
