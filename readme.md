@@ -4,8 +4,7 @@
 <p align="center"><sub>Extensions for building lecture handouts & slides with <a href="https://www.sphinx-doc.org/en/master">Sphinx</a>.</sub></p>
 
 <p align="center">
-  Start with one document ➡️ instantly generate <a href="https://fellowship.hackbrightacademy.com/materials/lectures/demo/">lecture notes</a> <b>and</b>
-  <a href="https://fellowship.hackbrightacademy.com/materials/slides/demo/">slides</a>
+  Start with one document ➡️ instantly generate <b>lecture handouts and slides</b>
 </p>
 
 ## 😎 Features
