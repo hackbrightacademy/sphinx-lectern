@@ -26,3 +26,9 @@ pipenv install -e git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#
 # With pip
 pip install git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
 ```
+
+## 📚 Docs
+
+Wanna learn more? [Check out our docs here](docs/).
+
+Just... uh... don't be too disappointed that there's not much there 😬
