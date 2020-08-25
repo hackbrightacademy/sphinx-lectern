@@ -30,6 +30,7 @@ class FillIn(Directive):
 
 
 def visit_fillin(self, node: fillin) -> None:
+    # TODO: Comment me, wtf is this
     self.body.append(f'<input type="text" id="fillin-{node.index}" class="fillin" style="width: {(len(node.rawsource) - len(node.role_markup)) / 2 + 2}em;">')
 
 
@@ -42,11 +43,14 @@ def depart_fillin(self, node: fillin) -> None:
 
 
 def depart_fillin_reveal(self, node: fillin) -> None:
+    # TODO: Explain yourself, you monster
+    # for slides, emit text (but dont emit the shit that will
+    # turn this thing into a fill-in-the-blank doo-dad)
     return
 
 
 def process_fillin(app: Sphinx,
-                   doctree,
+                   doctree: nodes.document,
                    fromdocname: str) -> None:
     if app.builder.name == 'handouts':
         count = 0

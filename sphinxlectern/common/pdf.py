@@ -42,7 +42,7 @@ def depart_pdfobject(self, node: nodes.Node) -> None:
 
 def setup(app: Sphinx) -> None:
     app.add_node(pdfobject,
-                 html=(visit_pdfobject, None),
+                 html=(visit_pdfobject, depart_pdfobject),
                  handouts=(visit_pdfobject, depart_pdfobject),
                  revealjs=(visit_pdfobject, depart_pdfobject),)
     app.add_directive('pdf', PdfObject)

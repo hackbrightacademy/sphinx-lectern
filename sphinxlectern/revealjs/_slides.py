@@ -13,6 +13,9 @@ class BaseSlide(Directive):
     option_spec = {
         'class': directives.class_option,
         'background': directives.unchanged,
+
+        # The choices below are all from Revealjs.
+        # See https://revealjs.com/transitions/
         'transition': lambda arg: directives.choice(
             arg,
             ('none',

@@ -1,6 +1,6 @@
-from typing import List, Callable
+from typing import List, Callable, Type, Union
+from sphinx.ext.graphviz import Graphviz
 from sphinx.writers.html5 import HTML5Translator
-
 from docutils.nodes import Node, SkipNode
 
 from docutils.parsers.rst import directives
@@ -8,12 +8,11 @@ from sphinx.util.docutils import SphinxDirective
 import sphinx.ext.graphviz as sphinx_graphviz
 
 
-def attach_style_options(c: sphinx_graphviz.Graphviz):
+def attach_style_options(c: Type[Graphviz]) -> Type[Graphviz]:
     """Give Graphviz directive options to add 'style' HTML attribute.
 
-    This will give you two options --- revealjs & handouts --- that
-    are used to render a 'style' HTML attribute in order to resize
-    dot-rendered SVGs.
+    This will give you two options --- revealjs & handouts --- that will
+    render a 'style' HTML attribute used to resize dot-rendered SVGs.
 
         .. digraph::
           :revealjs: height: 50%;
@@ -21,11 +20,8 @@ def attach_style_options(c: sphinx_graphviz.Graphviz):
 
     """
 
-    sphinx_graphviz.Graphviz.option_spec.update(
-        {'revealjs': directives.unchanged,
-         'handouts': directives.unchanged}
-    )
-    c.option_spec = sphinx_graphviz.Graphviz.option_spec
+    c.option_spec.update({'revealjs': directives.unchanged,
+                          'handouts': directives.unchanged})
 
     def run(self) -> List[Node]:
         node = super(c, self).run()[0]
@@ -34,19 +30,9 @@ def attach_style_options(c: sphinx_graphviz.Graphviz):
 
         return [node]
 
-    c.run = run
+    c.run = run  # type: ignore
 
     return c
-
-
-@attach_style_options
-class Graphviz(sphinx_graphviz.Graphviz):
-    pass
-
-
-@attach_style_options
-class GraphvizSimple(sphinx_graphviz.GraphvizSimple):
-    pass
 
 
 def visit_graphviz_for(builder_name: str) -> Callable:
@@ -75,8 +61,8 @@ def visit_graphviz_for(builder_name: str) -> Callable:
 def setup(app):
     """Monkey-patch our augmented versions of default doctest directives."""
 
-    sphinx_graphviz.Graphviz = Graphviz
-    sphinx_graphviz.GraphvizSimple = GraphvizSimple
+    sphinx_graphviz.Graphviz = attach_style_options(sphinx_graphviz.Graphviz)
+    sphinx_graphviz.GraphvizSimple = attach_style_options(sphinx_graphviz.GraphivzSimple)
     sphinx_graphviz.setup(app)
     app.add_node(sphinx_graphviz.graphviz,
                  html=(visit_graphviz_for('html'), None),
