@@ -62,7 +62,7 @@ def setup(app):
     """Monkey-patch our augmented versions of default doctest directives."""
 
     sphinx_graphviz.Graphviz = attach_style_options(sphinx_graphviz.Graphviz)
-    sphinx_graphviz.GraphvizSimple = attach_style_options(sphinx_graphviz.GraphivzSimple)
+    sphinx_graphviz.GraphvizSimple = attach_style_options(sphinx_graphviz.GraphvizSimple)
     sphinx_graphviz.setup(app)
     app.add_node(sphinx_graphviz.graphviz,
                  html=(visit_graphviz_for('html'), None),
