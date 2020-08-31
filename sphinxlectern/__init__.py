@@ -2,12 +2,13 @@
 
 from sphinx.application import Sphinx
 
-from . import (common,
-               handouts,
-               revealjs,
-               themes,
-               writers,
-               )
+from . import (
+    common,
+    handouts,
+    revealjs,
+    themes,
+    writers,
+)
 from .transformers import references
 
 

@@ -14,7 +14,7 @@ class HandoutsTranslator(HTML5Translator):
     Overrides Sphinx HTML translator.
     """
 
-    _previous_title = ''
+    _previous_title = ""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,7 +34,7 @@ class HandoutsTranslator(HTML5Translator):
         """Hide contents of hints in <details> tag."""
 
         self.body.append('<details class="admonition-body">')
-        self.body.append('<summary></summary>')
+        self.body.append("<summary></summary>")
 
     def visit_title(self, node: nodes.Node) -> None:
         if isinstance(node.parent, nodes.section):
@@ -47,29 +47,28 @@ class HandoutsTranslator(HTML5Translator):
         if isinstance(node.parent, nodes.hint):
             self._after_hint_title()
 
-    def visit_admonition(self, node: nodes.Node, name: str = '') -> None:
-        self.body.append(self.starttag(
-            node, 'div', CLASS=('admonition ' + name)))
+    def visit_admonition(self, node: nodes.Node, name: str = "") -> None:
+        self.body.append(self.starttag(node, "div", CLASS=("admonition " + name)))
 
     def depart_hint(self, node: nodes.Node) -> None:
-        self.body.append('</details>')
+        self.body.append("</details>")
         super().depart_hint(node)
 
 
 class HandoutsBuilder(DontBuildAdditionalPages):
     """Builder for making HTML handouts using Sphinx."""
 
-    name = 'handouts'
+    name = "handouts"
 
 
 class SinglePageHandoutsBuilder(SingleFileHTMLBuilder):
-    name = 'singlepage'
+    name = "singlepage"
 
 
 def setup(app: Sphinx) -> None:
     app.add_builder(HandoutsBuilder)
     app.add_builder(SinglePageHandoutsBuilder)
-    app.set_translator('handouts', HandoutsTranslator)
-    app.set_translator('singlepage', HandoutsTranslator)
-    app.add_config_value('handouts_theme', 'handouts', 'env')
-    app.add_config_value('handouts_imgmath_dvipng_args', [], 'env')
+    app.set_translator("handouts", HandoutsTranslator)
+    app.set_translator("singlepage", HandoutsTranslator)
+    app.add_config_value("handouts_theme", "handouts", "env")
+    app.add_config_value("handouts_imgmath_dvipng_args", [], "env")

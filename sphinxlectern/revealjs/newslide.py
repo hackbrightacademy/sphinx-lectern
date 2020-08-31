@@ -31,7 +31,6 @@ class newslide(nodes.General, nodes.Element):
     """Newslide node."""
 
 
-
 class Newslide(BaseSlide):
     """Newslide directive."""
 
@@ -39,9 +38,9 @@ class Newslide(BaseSlide):
     final_argument_whitespace = True
 
     def run(self) -> List[nodes.Element]:
-        local_title = self.arguments[0] if self.arguments else ''
+        local_title = self.arguments[0] if self.arguments else ""
 
-        slide_node = newslide('', localtitle=local_title)
+        slide_node = newslide("", localtitle=local_title)
         self.attach_options(slide_node)
 
         # This directive is only used for post-processing after the
@@ -51,14 +50,12 @@ class Newslide(BaseSlide):
         return [slide_node]
 
 
-def process_newslides(app: Sphinx,
-                      doctree,
-                      fromdocname: str) -> None:
+def process_newslides(app: Sphinx, doctree, fromdocname: str) -> None:
     """Process newslides after doctree is resolved."""
 
     while doctree.traverse(newslide):
         newslide_node = doctree.next_node(newslide)
-        if app.builder.name != 'revealjs':
+        if app.builder.name != "revealjs":
             newslide_node.parent.remove(newslide_node)
             continue
 
@@ -67,25 +64,24 @@ def process_newslides(app: Sphinx,
         # parent_section might have been created by a newslide_node.
         # If so, traverse until we find a "real" slide.
         check_section = parent_section
-        while 'localtitle' in check_section.attributes:
+        while "localtitle" in check_section.attributes:
             i = check_section.parent.index(check_section)
             check_section = check_section.parent.children[i - 1]
 
-        local_title = newslide_node.attributes['localtitle'].strip()
+        local_title = newslide_node.attributes["localtitle"].strip()
         title = check_section.children[0].astext().strip()
-        if local_title and local_title.startswith('+'):
-            title = f'{title} {local_title[1:]}'
+        if local_title and local_title.startswith("+"):
+            title = f"{title} {local_title[1:]}"
         elif local_title:
             title = local_title
 
-        new_section = nodes.section('')
+        new_section = nodes.section("")
         new_section.attributes = newslide_node.attributes
         doctree.set_id(new_section)
 
-        new_section += nodes.title('', title)
+        new_section += nodes.title("", title)
 
-        for next_node in parent_section[
-                parent_section.index(newslide_node) + 1:]:
+        for next_node in parent_section[parent_section.index(newslide_node) + 1 :]:
             new_section.append(next_node.deepcopy())
             parent_section.remove(next_node)
 
@@ -96,5 +92,5 @@ def process_newslides(app: Sphinx,
 
 def setup(app: Sphinx) -> None:
     app.add_node(newslide)
-    app.add_directive('newslide', Newslide)
-    app.connect('doctree-resolved', process_newslides)
+    app.add_directive("newslide", Newslide)
+    app.connect("doctree-resolved", process_newslides)

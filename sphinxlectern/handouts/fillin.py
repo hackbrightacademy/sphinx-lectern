@@ -12,8 +12,8 @@ from docutils.parsers.rst import Directive
 
 
 class fillin(nodes.Part, nodes.TextElement):
-    role_name = 'fillin'
-    role_markup = f':{role_name}:``'
+    role_name = "fillin"
+    role_markup = f":{role_name}:``"
 
 
 class FillIn(Directive):
@@ -22,7 +22,7 @@ class FillIn(Directive):
     def run(self) -> List[nodes.Node]:
         self.assert_has_content()
 
-        text = '\n'.join(self.content)
+        text = "\n".join(self.content)
 
         node = fillin(text, text)
         self.state.nested_parse(self.content, self.content_offset, node)
@@ -31,7 +31,9 @@ class FillIn(Directive):
 
 def visit_fillin(self, node: fillin) -> None:
     # TODO: Comment me, wtf is this
-    self.body.append(f'<input type="text" id="fillin-{node.index}" class="fillin" style="width: {(len(node.rawsource) - len(node.role_markup)) / 2 + 2}em;">')
+    self.body.append(
+        f'<input type="text" id="fillin-{node.index}" class="fillin" style="width: {(len(node.rawsource) - len(node.role_markup)) / 2 + 2}em;">'
+    )
 
 
 def visit_fillin_reveal(self, node: fillin) -> None:
@@ -39,7 +41,7 @@ def visit_fillin_reveal(self, node: fillin) -> None:
 
 
 def depart_fillin(self, node: fillin) -> None:
-    self.body.append('</input>')
+    self.body.append("</input>")
 
 
 def depart_fillin_reveal(self, node: fillin) -> None:
@@ -49,10 +51,8 @@ def depart_fillin_reveal(self, node: fillin) -> None:
     return
 
 
-def process_fillin(app: Sphinx,
-                   doctree: nodes.document,
-                   fromdocname: str) -> None:
-    if app.builder.name == 'handouts':
+def process_fillin(app: Sphinx, doctree: nodes.document, fromdocname: str) -> None:
+    if app.builder.name == "handouts":
         count = 0
         for node in doctree.traverse(fillin):
             node.children = []  # Remove all text nodes
@@ -62,9 +62,11 @@ def process_fillin(app: Sphinx,
 
 
 def setup(app: Sphinx) -> None:
-    app.add_node(fillin,
-                 html=(visit_fillin, depart_fillin),
-                 handouts=(visit_fillin, depart_fillin),
-                 revealjs=(visit_fillin_reveal, depart_fillin_reveal))
-    app.add_generic_role('fillin', fillin)
-    app.connect('doctree-resolved', process_fillin)
+    app.add_node(
+        fillin,
+        html=(visit_fillin, depart_fillin),
+        handouts=(visit_fillin, depart_fillin),
+        revealjs=(visit_fillin_reveal, depart_fillin_reveal),
+    )
+    app.add_generic_role("fillin", fillin)
+    app.connect("doctree-resolved", process_fillin)

@@ -10,7 +10,7 @@ from pathlib import PurePath
 from ._no_additional_pages import DontBuildAdditionalPages
 from ._html5 import HTML5Translator
 
-IMG_EXTENSIONS = ['jpg', 'png', 'gif', 'svg']
+IMG_EXTENSIONS = ["jpg", "png", "gif", "svg"]
 
 
 def get_attrs_as_html(node_attrs: Dict[str, Any]):
@@ -21,7 +21,7 @@ def get_attrs_as_html(node_attrs: Dict[str, Any]):
     html_attrs = {}
     for attr, val in node_attrs.items():
         if attr not in basic_attrs and type(val) is str:
-            attr_name = f'data-{attr}' if attr != 'class' else attr
+            attr_name = f"data-{attr}" if attr != "class" else attr
             html_attrs[attr_name] = val
     return html_attrs
 
@@ -40,7 +40,7 @@ class RevealJSTranslator(HTML5Translator):
         """Add path to a resource to builder."""
 
         parsed_path = PurePath(path.lower())
-        if parsed_path.suffix in [f'.{ext}' for ext in IMG_EXTENSIONS]:
+        if parsed_path.suffix in [f".{ext}" for ext in IMG_EXTENSIONS]:
             self.builder.images[name] = parsed_path.name
 
     def _new_section(self, node: nodes.Node) -> None:
@@ -51,18 +51,16 @@ class RevealJSTranslator(HTML5Translator):
 
         html_attrs = get_attrs_as_html(node.attributes)
 
-        if 'data-background' in html_attrs:
-            bg_name = node.attributes['background']
-            self._add_path_to_builder(bg_name,
-                                      html_attrs['data-background'])
+        if "data-background" in html_attrs:
+            bg_name = node.attributes["background"]
+            self._add_path_to_builder(bg_name, html_attrs["data-background"])
             if bg_name in self.builder.images:
-                html_attrs['data-background'] = path.join(
-                    self.builder.imagedir,
-                    self.builder.images[bg_name])
+                html_attrs["data-background"] = path.join(
+                    self.builder.imagedir, self.builder.images[bg_name]
+                )
 
-        attrs = ' '.join([f'{attr}="{val}"'
-                          for attr, val in html_attrs.items()])
-        self.body.append(f'<section {attrs}>')
+        attrs = " ".join([f'{attr}="{val}"' for attr, val in html_attrs.items()])
+        self.body.append(f"<section {attrs}>")
 
     def visit_section(self, node: nodes.Node) -> None:
         """Only add a new section for 2nd- or 3rd-level sections."""
@@ -76,14 +74,14 @@ class RevealJSTranslator(HTML5Translator):
         self.section_level -= 1
 
         if self.section_level in [1, 2]:
-            self.body.append('</section>')
+            self.body.append("</section>")
 
     def visit_title(self, node: nodes.Node) -> None:
         if self.section_level == 1:
             raise nodes.SkipNode
 
         if self.section_level == 2:
-            self.body.append('<section>')
+            self.body.append("<section>")
 
         super().visit_title(node)
 
@@ -91,7 +89,7 @@ class RevealJSTranslator(HTML5Translator):
         super().depart_title(node)
 
         if self.section_level == 2:
-            self.body.append('</section>')
+            self.body.append("</section>")
 
     def visit_admonition(self, *args):
         raise nodes.SkipNode
@@ -106,7 +104,7 @@ class RevealJSTranslator(HTML5Translator):
 class RevealJSBuilder(DontBuildAdditionalPages):
     """Builder for making RevealJS using Sphinx."""
 
-    name = 'revealjs'
+    name = "revealjs"
 
     def init(self):
         """Override StandaloneHTMLBuilder.init."""
@@ -120,6 +118,6 @@ class RevealJSBuilder(DontBuildAdditionalPages):
 
 def setup(app: Sphinx) -> None:
     app.add_builder(RevealJSBuilder)
-    app.set_translator('revealjs', RevealJSTranslator)
-    app.add_config_value('revealjs_theme', 'revealjs', 'env')
-    app.add_config_value('revealjs_imgmath_dvipng_args', [], 'env')
+    app.set_translator("revealjs", RevealJSTranslator)
+    app.add_config_value("revealjs_theme", "revealjs", "env")
+    app.add_config_value("revealjs_imgmath_dvipng_args", [], "env")

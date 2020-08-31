@@ -33,7 +33,7 @@ class Interslide(BaseSlide):
     has_content = True
 
     def run(self) -> List[nodes.Node]:
-        text = '\n'.join(self.content)
+        text = "\n".join(self.content)
 
         slide_node = interslide(text)
         self.attach_options(slide_node)
@@ -54,7 +54,7 @@ def visit_interslide(self, node: nodes.Node) -> None:
     """
 
     if self.section_level > 2:
-        self.body.append('</section>')
+        self.body.append("</section>")
 
     self._new_section(node)
 
@@ -63,7 +63,7 @@ def depart_interslide(self, node: nodes.Node) -> None:
     """Only close the slide if we're a top-level interslide."""
 
     if self.section_level == 2:
-        self.body.append('</section>')
+        self.body.append("</section>")
 
 
 def ignore_interslide(self, node: nodes.Node) -> None:
@@ -71,8 +71,10 @@ def ignore_interslide(self, node: nodes.Node) -> None:
 
 
 def setup(app: Sphinx) -> None:
-    app.add_node(interslide,
-                 html=(ignore_interslide, None),
-                 handouts=(ignore_interslide, None),
-                 revealjs=(visit_interslide, depart_interslide))
-    app.add_directive('interslide', Interslide)
+    app.add_node(
+        interslide,
+        html=(ignore_interslide, None),
+        handouts=(ignore_interslide, None),
+        revealjs=(visit_interslide, depart_interslide),
+    )
+    app.add_directive("interslide", Interslide)

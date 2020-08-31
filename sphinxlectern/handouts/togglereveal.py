@@ -18,16 +18,14 @@ class ToggleReveal(Directive):
     final_argument_whitespace = True
     has_content = True
 
-    option_spec = {
-        'class': directives.class_option
-    }
+    option_spec = {"class": directives.class_option}
 
     def run(self) -> List[nodes.Node]:
         self.assert_has_content()
-        text = '\n'.join(self.content)
+        text = "\n".join(self.content)
 
         node = togglereveal(text)
-        node['classes'] += self.options.get('class', [])
+        node["classes"] += self.options.get("class", [])
 
         self.add_name(node)
         self.state.nested_parse(self.content, self.content_offset, node)
@@ -35,14 +33,14 @@ class ToggleReveal(Directive):
 
 
 def visit_togglereveal(self, node: nodes.Node) -> None:
-    classes = ' '.join(node.get('classes', []))
+    classes = " ".join(node.get("classes", []))
     self.body.append(f'<div class="togglereveal {classes}">')
     self.body.append('<details class="admonition-body">')
-    self.body.append('<summary></summary>')
+    self.body.append("<summary></summary>")
 
 
 def depart_togglereveal(self, node: nodes.Node) -> None:
-    self.body.append('</details></div>')
+    self.body.append("</details></div>")
 
 
 def ignore_togglereveal(self, node: nodes.Node) -> None:
@@ -50,9 +48,11 @@ def ignore_togglereveal(self, node: nodes.Node) -> None:
 
 
 def setup(app: Sphinx) -> None:
-    app.add_node(togglereveal,
-                 html=(visit_togglereveal, depart_togglereveal),
-                 handouts=(visit_togglereveal, depart_togglereveal),
-                 revealjs=(ignore_togglereveal, None))
-    app.add_directive('togglereveal', ToggleReveal)
-    app.add_directive('toggle', ToggleReveal)
+    app.add_node(
+        togglereveal,
+        html=(visit_togglereveal, depart_togglereveal),
+        handouts=(visit_togglereveal, depart_togglereveal),
+        revealjs=(ignore_togglereveal, None),
+    )
+    app.add_directive("togglereveal", ToggleReveal)
+    app.add_directive("toggle", ToggleReveal)

@@ -13,20 +13,20 @@ class Speakernote(Directive):
 
     def run(self) -> List[nodes.Node]:
         self.assert_has_content()
-        node = speakernote('\n'.join(self.content))
-        node['classes'] += ['notes']
+        node = speakernote("\n".join(self.content))
+        node["classes"] += ["notes"]
         self.add_name(node)
         self.state.nested_parse(self.content, self.content_offset, node)
         return [node]
 
 
 def visit_speakernote(self, node: nodes.Node) -> None:
-    classes = ' '.join(node['classes'])
+    classes = " ".join(node["classes"])
     self.body.append(f'<aside class="{classes}">')
 
 
 def depart_speakernote(self, node: nodes.Node) -> None:
-    self.body.append('</aside>')
+    self.body.append("</aside>")
 
 
 def ignore_speakernote(self, node: nodes.Node) -> None:
@@ -34,9 +34,10 @@ def ignore_speakernote(self, node: nodes.Node) -> None:
 
 
 def setup(app: Sphinx) -> None:
-    app.add_node(speakernote,
-                 html=(ignore_speakernote, None),
-                 handouts=(ignore_speakernote, None),
-                 revealjs=(visit_speakernote,
-                           depart_speakernote))
-    app.add_directive('speaker', Speakernote)
+    app.add_node(
+        speakernote,
+        html=(ignore_speakernote, None),
+        handouts=(ignore_speakernote, None),
+        revealjs=(visit_speakernote, depart_speakernote),
+    )
+    app.add_directive("speaker", Speakernote)

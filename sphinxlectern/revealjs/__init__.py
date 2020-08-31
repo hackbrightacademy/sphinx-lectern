@@ -2,10 +2,12 @@
 
 from sphinx.application import Sphinx
 
-from . import (incremental,
-               interslide,
-               newslide,
-               speakernote, )
+from . import (
+    incremental,
+    interslide,
+    newslide,
+    speakernote,
+)
 
 
 def setup(app: Sphinx) -> None:

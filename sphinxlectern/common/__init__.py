@@ -5,11 +5,12 @@ Modules for both lecture notes and slides.
 
 from sphinx.application import Sphinx
 
-from . import (doctest,
-               graphviz,
-               pdf,
-               rstutil,
-               )
+from . import (
+    doctest,
+    graphviz,
+    pdf,
+    rstutil,
+)
 
 
 def setup(app: Sphinx):

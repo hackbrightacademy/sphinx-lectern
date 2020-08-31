@@ -2,9 +2,10 @@
 
 from sphinx.application import Sphinx
 
-from . import (handouts,
-               revealjs,
-               )
+from . import (
+    handouts,
+    revealjs,
+)
 
 
 def setup(app: Sphinx):

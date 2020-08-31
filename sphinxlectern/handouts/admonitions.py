@@ -8,8 +8,7 @@ from sphinx.application import Sphinx
 
 class BaseAdmonition(Directive):
     final_argument_whitespace = True
-    option_spec = {'class': directives.class_option,
-                   'name': directives.unchanged}
+    option_spec = {"class": directives.class_option, "name": directives.unchanged}
     has_content = True
     required_arguments = 1
 
@@ -25,27 +24,23 @@ class BaseAdmonition(Directive):
 
     def run(self) -> List[nodes.Node]:
         self.assert_has_content()
-        text = '\n'.join(self.content)
+        text = "\n".join(self.content)
 
         admonition_node = self.node_class(text, **self.options)
-        admonition_node['classes'] += self.options.get('class', [])
+        admonition_node["classes"] += self.options.get("class", [])
 
         title_text = self.get_title()
-        textnodes, messages = self.state.inline_text(title_text,
-                                                     self.lineno)
-        title = nodes.title(title_text, '', *textnodes)
-        title.source, title.line = (
-                self.state_machine.get_source_and_line(self.lineno))
+        textnodes, messages = self.state.inline_text(title_text, self.lineno)
+        title = nodes.title(title_text, "", *textnodes)
+        title.source, title.line = self.state_machine.get_source_and_line(self.lineno)
 
         admonition_node += title
 
         self.add_name(admonition_node)
 
         body = nodes.container(text)
-        body['classes'] += ['admonition-body']
-        self.state.nested_parse(self.content,
-                                self.content_offset,
-                                body)
+        body["classes"] += ["admonition-body"]
+        self.state.nested_parse(self.content, self.content_offset, body)
         admonition_node += body
         admonition_node += messages
 
@@ -69,7 +64,7 @@ class Warning(BaseAdmonition):
 
 
 def setup(app: Sphinx) -> None:
-    app.add_directive('admonition', Admonition, override=True)
-    app.add_directive('hint', Hint, override=True)
-    app.add_directive('note', Note, override=True)
-    app.add_directive('warning', Warning, override=True)
+    app.add_directive("admonition", Admonition, override=True)
+    app.add_directive("hint", Hint, override=True)
+    app.add_directive("note", Note, override=True)
+    app.add_directive("warning", Warning, override=True)

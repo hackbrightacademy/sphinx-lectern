@@ -5,9 +5,7 @@ Modules for building lecture notes.
 
 from sphinx.application import Sphinx
 
-from . import (admonitions,
-               fillin,
-               togglereveal)
+from . import admonitions, fillin, togglereveal
 
 
 def setup(app: Sphinx):
