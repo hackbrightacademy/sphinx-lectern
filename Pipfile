@@ -9,6 +9,7 @@ pytest = "*"
 beautifulsoup4 = "*"
 mypy = "*"
 black = "*"
+python-githooks = "*"
 
 [packages]
 
