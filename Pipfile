@@ -8,6 +8,7 @@ sphinx-testing = "*"
 pytest = "*"
 beautifulsoup4 = "*"
 mypy = "*"
+black = "*"
 
 [packages]
 
