@@ -7,12 +7,10 @@ see:
 import sys
 import os
 
-sys.path.append(os.path.abspath('./../../..'))
+sys.path.append(os.path.abspath("./../../.."))
 
-master_doc = 'index'
-extensions = [
-    'sphinxlectern'
-]
+master_doc = "index"
+extensions = ["sphinxlectern"]
 
-revealjs_theme = 'revealjs'
-pygments_style = 'sphinx'
+revealjs_theme = "revealjs"
+pygments_style = "sphinx"
