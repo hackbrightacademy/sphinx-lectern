@@ -5,3 +5,4 @@ dist
 build
 _build
 *.egg-info
+.vscode
