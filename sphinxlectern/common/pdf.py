@@ -6,7 +6,7 @@ This relies on https://www.npmjs.com/package/pdfobject
 """
 
 from typing import List
-from docutils.node import Node
+from docutils.nodes import Node
 
 from sphinx.application import Sphinx
 from docutils import nodes
