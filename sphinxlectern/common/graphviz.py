@@ -25,7 +25,7 @@ def attach_style_options(c: Type[Graphviz]) -> Type[Graphviz]:
     )
 
     def run(self) -> List[Node]:
-        node = super(c, self).run()[0]
+        node = c.run()[0]
         node["revealjs"] = self.options.get("revealjs", "width: 100%;")
         node["handouts"] = self.options.get("handouts", "width: 100%;")
 
