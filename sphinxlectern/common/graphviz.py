@@ -1,5 +1,5 @@
 from typing import List, Callable, Type, Union
-from sphinx.ext.graphviz import Graphviz
+from sphinx.ext.graphviz import Graphviz, GraphvizSimple
 from sphinx.writers.html5 import HTML5Translator
 from docutils.nodes import Node, SkipNode
 
@@ -25,7 +25,7 @@ def attach_style_options(c: Type[Graphviz]) -> Type[Graphviz]:
     )
 
     def run(self) -> List[Node]:
-        node = c.run(self)[0]
+        node = super(c, self).run()[0]
         node["revealjs"] = self.options.get("revealjs", "width: 100%;")
         node["handouts"] = self.options.get("handouts", "width: 100%;")
 
@@ -34,6 +34,16 @@ def attach_style_options(c: Type[Graphviz]) -> Type[Graphviz]:
     c.run = run  # type: ignore
 
     return c
+
+
+@attach_style_options
+class LecternGraphviz(Graphviz):
+    """Our Graphviz directive, which we'll use to monkey-patch Sphinx's."""
+
+
+@attach_style_options
+class LecternGraphvizSimple(GraphvizSimple):
+    """Our GraphvizSimple directive, which we'll use to monkey-patch Sphinx's."""
 
 
 def visit_graphviz_for(builder_name: str) -> Callable:
@@ -58,10 +68,8 @@ def visit_graphviz_for(builder_name: str) -> Callable:
 def setup(app):
     """Monkey-patch our augmented versions of default doctest directives."""
 
-    sphinx_graphviz.Graphviz = attach_style_options(sphinx_graphviz.Graphviz)
-    sphinx_graphviz.GraphvizSimple = attach_style_options(
-        sphinx_graphviz.GraphvizSimple
-    )
+    sphinx_graphviz.Graphviz = LecternGraphviz
+    sphinx_graphviz.GraphvizSimple = LecternGraphvizSimple
     sphinx_graphviz.setup(app)
     app.add_node(
         sphinx_graphviz.graphviz,
