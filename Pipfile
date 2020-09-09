@@ -17,5 +17,6 @@ python-githooks = "*"
 python_version = "3.8"
 
 [scripts]
+init = "githooks"
 build = "python3 setup.py sdist bdist_wheel"
 test = "pytest tests"

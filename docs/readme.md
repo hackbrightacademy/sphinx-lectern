@@ -6,6 +6,7 @@ use to generate handouts and slide decks.
 
 ### Contents of *this* file
 
+- [Install for development](#install-for-development)
 - [About Sphinx](#about-sphinx)
   - [The basic idea though...](#the-basic-idea-though)
 - [About sphinx-lectern](#about-sphinx-lectern)
@@ -18,6 +19,20 @@ use to generate handouts and slide decks.
 - Quickstart
 - How to write a basic lecture
 - IDK what else to put here
+
+## Install for development
+
+Assuming you have [pipenv](https://pipenv-fork.readthedocs.io/en/latest/) installed:
+
+```
+pipenv install --dev --skip-lock
+```
+
+Then, to finalize:
+
+```
+pipenv run init
+```
 
 ## About Sphinx
 
