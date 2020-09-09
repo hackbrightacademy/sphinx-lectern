@@ -7,7 +7,7 @@ Basically, anything that should go in the rst_prolog should go here.
 
 from sphinx.application import Sphinx
 
-colors = """
+COLORS = """
 .. role:: red
 .. role:: green
 .. role:: orange
@@ -24,7 +24,13 @@ colors = """
 .. role:: text-heavy
 """
 
-symbols = """
+REVEAL_BR = """
+.. role:: raw-revealjs(raw)
+  :format: html
+.. |reveal-br| replace:: :raw-revealjs:`<br>`
+"""
+
+SYMBOLS = """
 .. |nbsp| unicode:: U+000A0 .. NONBREAKING SPACE
 .. |rarr| unicode:: U+02192 .. →
 .. |larr| unicode:: U+02190 .. ←
@@ -39,7 +45,7 @@ symbols = """
 .. |super2| unicode:: U+000B2 .. SUPERSCRIPT 2
 """
 
-python_substitutions = """
+PYTHON_SUBSTITUTIONS = """
 .. |py| replace:: python3
 .. |pyname| replace:: Python 3
 .. |pyi| replace:: `python3`
@@ -58,26 +64,32 @@ python_substitutions = """
 .. |venvcmd|   replace:: `virtualenv`:cmd:
 """
 
-text_editor_substitutions = """
+EDITOR_SUBSTITUTIONS = """
 .. |editor|    replace:: subl
 .. |editori|   replace:: `subl`
 .. |editcmd|   replace:: `subl`:cmd:
 .. |editorname|  replace:: Sublime Text
 """
 
-reveal_br = """
-.. role:: raw-revealjs(raw)
-  :format: html
-.. |reveal-br| replace:: :raw-revealjs:`<br>`
-"""
-
 
 def add_rst_prolog(app, config):
+    """Add roles to config.rst_prolog."""
+
     if not config.rst_prolog:
         config.rst_prolog = ""
 
-    config.rst_prolog += colors + symbols + text_editor_substitutions + reveal_br
+    config.rst_prolog += COLORS + REVEAL_BR
+
+
+def add_rst_epilog(app, config):
+    """Add substitutions to config.rst_epilog."""
+
+    if not config.rst_epilog:
+        config.rst_epilog = ""
+
+    config.rst_epilog += SYMBOLS + PYTHON_SUBSTITUTIONS + EDITOR_SUBSTITUTIONS
 
 
 def setup(app: Sphinx) -> None:
     app.connect("config-inited", add_rst_prolog)
+    app.connect("config-inited", add_rst_epilog)
