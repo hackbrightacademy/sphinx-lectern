@@ -1,5 +1,5 @@
 const Reveal = require('reveal.js');
-const RevealNotes = require('./plugins/notes.js');
+const RevealNotes = require('./plugins/revealjsNotes.js');
 
 Reveal.initialize({
   maxScale: 5,

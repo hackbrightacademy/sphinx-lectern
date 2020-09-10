@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>MCQ</title>
+    <link href="handouts.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div
+      class="mcq topic"
+      data-id="mcq-1"
+      data-ans="a"
+      data-feedback='{"a": "Correct!", "b": "Not correct."}'
+    >
+      <p>Check your understanding</p>
+      <div class="admonition-body">
+        <p class="mcq-prompt">Choice 1 or choice 2?</p>
+        <ol class="upperalpha simple">
+          <div class="mcq-answer-group">
+            <input id="mcq-1-a" type="radio" name="mcq-1" value="a" />
+            <label for="mcq-1-a">
+              <li>
+                <p>Choice 1</p>
+              </li>
+            </label>
+          </div>
+          <div class="mcq-answer-group">
+            <input id="mcq-1-b" type="radio" name="mcq-1" value="b" />
+            <label for="mcq-1-b">
+              <li>
+                <p>Choice 2</p>
+              </li>
+            </label>
+          </div>
+        </ol>
+
+        <button class="mcq-answer-checker">Check Answer</button>
+
+        <p class="mcq-alert"></p>
+      </div>
+    </div>
+
+    <script>
+      Array.from(document.querySelectorAll('.mcq')).forEach((el) => {
+        const { id, ans, feedback } = el.dataset;
+        const mcqAlert = el.querySelector('.mcq-alert');
+        const mcqData = {
+          id,
+          ans,
+          feedback: JSON.parse(el.dataset.feedback),
+        };
+
+        el.querySelector('.mcq-answer-checker').addEventListener('click', (e) => {
+          // reset
+          mcqAlert.classList.remove(...['mcq-correct', 'mcq-incorrect']);
+          const selectedAns = document.querySelector(
+            `input[name="${mcqData.id}"]:checked`
+          );
+          if (selectedAns) {
+            mcqAlert.classList.add(
+              selectedAns.value === mcqData.ans ? 'mcq-correct' : 'mcq-incorrect'
+            );
+            mcqAlert.innerText = mcqData.feedback[selectedAns.value];
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

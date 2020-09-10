@@ -4,6 +4,7 @@
 @import './common/print.css';
 @import './handouts/admonitions.css';
 @import './handouts/fillin.css';
+@import './handouts/mcq.css';
 
 /* Sidebar */
 #page-toc {
@@ -48,7 +49,8 @@
   }
 }
 
-#page-header, #page-toc {
+#page-header,
+#page-toc {
   padding: 1em;
 }
 
@@ -89,7 +91,7 @@
     margin: 5px;
   }
 
-  @media(min-width: 1135px) {
+  @media (min-width: 1135px) {
     background: var(--bg);
     color: var(--color);
   }

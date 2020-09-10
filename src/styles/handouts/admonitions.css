@@ -27,6 +27,12 @@
   --titlePrefix: 'Warning: ';
 }
 
+.knowledge_check {
+  --titleBg: var(--purple);
+  --titleColor: white;
+  --titlePrefix: 'Check Your Knowledge';
+}
+
 .togglereveal {
   --titleBg: var(--darkGray);
 }
@@ -46,7 +52,8 @@
 .sidebar,
 .warning,
 .topic,
-.hint {
+.hint,
+.knowledge_check {
   border: 1px solid var(--titleBg);
 
   & > p:first-child {

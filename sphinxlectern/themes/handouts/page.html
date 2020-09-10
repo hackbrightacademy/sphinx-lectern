@@ -1,12 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1>"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1>" />
     <title>{{ title }} | {{ docstitle|e }}</title>
 
-    <link href="{{ pathto('_static/pygments.css', 1) }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css"/>
+    <link
+      href="{{ pathto('_static/pygments.css', 1) }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css" />
 
     <script src="{{ pathto('_static/pdfobject.min.js', 1) }}"></script>
   </head>
@@ -15,49 +19,39 @@
       <header id="page-header">
         <p id="project-title">{{ project }}</p>
         <p id="page-title">{{ title }}</p>
+        {%- if theme_show_backlink %}
         <p id="backlink">
-          <a href="{{ backurl }}">
-            &laquo; Back to Homepage
-          </a>
+          <a href="{{ backurl }}"> &laquo; Back to Homepage </a>
         </p>
+        {%- endif %}
       </header>
 
-      <nav id="page-toc">
-        {{ toc }}
-      </nav>
+      <nav id="page-toc">{{ toc }}</nav>
 
       <main id="page-content">
         {%- if builder == 'handbook' %}
-          <nav class="chapter-nav">
-            <div class="chapter-prev">
-              {%- if prev %}
-                ←
-                <a href="{{ prev.link|e }}">Previous Page</a>
-              {%- endif %}
-            </div>
-            <div class="chapter-nav-title">
-              <span>Chapter Navigation</span>
-            </div>
-            <div class="chapter-next">
-              {%- if next %}
-                <a href="{{ next.link|e }}">Next Page</a>
-                →
-              {%- endif %}
-            </div>
-          </nav>
-        {%- endif %}
-
-        {%- if builder == 'singlepage' %}
-          <div id="body-toc" class="section">
-            <h1>{{ title }}</h1>
-            <h2>Table of Contents</h2>
-            {{ toc }}
+        <nav class="chapter-nav">
+          <div class="chapter-prev">
+            {%- if prev %} ←
+            <a href="{{ prev.link|e }}">Previous Page</a>
+            {%- endif %}
           </div>
-        {%- endif %}
-
-        {% block document %}
-          {{ body }}
-        {% endblock document %}
+          <div class="chapter-nav-title">
+            <span>Chapter Navigation</span>
+          </div>
+          <div class="chapter-next">
+            {%- if next %}
+            <a href="{{ next.link|e }}">Next Page</a>
+            → {%- endif %}
+          </div>
+        </nav>
+        {%- endif %} {%- if builder == 'singlepage' %}
+        <div id="body-toc" class="section">
+          <h1>{{ title }}</h1>
+          <h2>Table of Contents</h2>
+          {{ toc }}
+        </div>
+        {%- endif %} {% block document %} {{ body }} {% endblock document %}
       </main>
 
       <footer id="page-footer">

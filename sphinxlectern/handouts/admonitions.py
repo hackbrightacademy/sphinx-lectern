@@ -1,6 +1,6 @@
 """Monkeypatch default admonition directives so they all require titles."""
 
-from typing import List, Optional, Callable
+from typing import List, Optional, Callable, Type
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from sphinx.application import Sphinx
@@ -12,9 +12,9 @@ class BaseAdmonition(Directive):
     has_content = True
     required_arguments = 1
 
-    node_class: Optional
+    node_class: Optional[Type[nodes.Node]] = None
 
-    def get_title(self) -> None:
+    def get_title(self) -> str:
         """By default, this returns the first, required argument.
 
         Override to set a custom title.
@@ -26,7 +26,7 @@ class BaseAdmonition(Directive):
         self.assert_has_content()
         text = "\n".join(self.content)
 
-        admonition_node = self.node_class(text, **self.options)
+        admonition_node = self.node_class(text, **self.options)  # type: ignore
         admonition_node["classes"] += self.options.get("class", [])
 
         title_text = self.get_title()
@@ -63,8 +63,32 @@ class Warning(BaseAdmonition):
     node_class = nodes.warning
 
 
+class knowledge_check(nodes.Admonition, nodes.Element):
+    pass
+
+
+def visit_knowledge_check(self, node: knowledge_check):
+    self.visit_admonition(node, "knowledge_check")
+
+
+def depart_knowledge_check(self, node: knowledge_check):
+    self.depart_admonition(node)
+
+
+class KnowledgeCheck(BaseAdmonition):
+    node_class = knowledge_check
+    required_arguments = 0
+
+    def get_title(self) -> str:
+        return ""
+
+
 def setup(app: Sphinx) -> None:
     app.add_directive("admonition", Admonition, override=True)
     app.add_directive("hint", Hint, override=True)
     app.add_directive("note", Note, override=True)
     app.add_directive("warning", Warning, override=True)
+    app.add_directive("knowledge-check", KnowledgeCheck)
+    app.add_node(
+        knowledge_check, handouts=(visit_knowledge_check, depart_knowledge_check)
+    )
