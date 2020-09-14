@@ -66,6 +66,10 @@ pre {
     @import './handouts/admonitions';
     @import './handouts/fillin';
     @import './handouts/mcq';
+
+    .mcq p {
+      margin-top: 0.5em;
+    }
   }
 
   .docexample-src {

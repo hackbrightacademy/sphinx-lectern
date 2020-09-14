@@ -5833,6 +5833,8 @@ pre {
       .docexample .docexample-render .mcq-alert::before {
         content: var(--mcqAlertPrefix);
         margin-right: 0.5em; }
+    .docexample .docexample-render .mcq p {
+      margin-top: 0.5em; }
   .docexample .docexample-src {
     border-top: 2px solid #ffdd57; }
     .docexample .docexample-src pre {
