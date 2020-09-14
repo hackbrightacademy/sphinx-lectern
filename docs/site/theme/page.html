@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title }} | {{ docstitle|e }}</title>
+    <link rel="stylesheet" href="{{ pathto('_static/bulma.css', 1) }}" />
+    <link href="{{ pathto('_static/pygments.css', 1) }}" rel="stylesheet" />
+    <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://hackbrightacademy.github.io/sphinx-lectern">
+          <img src="_static/hb-logo.png" />
+          <p>Sphinx-Lectern</p>
+        </a>
+        <div class="links-out">
+          <a
+            class="navbar-item"
+            href="https://github.com/hackbrightacademy/sphinx-lectern"
+          >
+            <span class="icon is-large">
+              <i class="fab fa-github fa-2x"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="columns">
+      <aside class="column is-3">
+        <nav>{{ toc }}</nav>
+      </aside>
+
+      <main class="column is-9">
+        <div id="page-content">
+          {% block document %} {{ body }} {% endblock document %}
+        </div>
+      </main>
+    </div>
+
+    <footer id="page-footer">
+      <p>&copy; {{ copyright }}</p>
+    </footer>
+
+    <script src="{{ pathto('_static/main.js', 1) }}"></script>
+  </body>
+</html>

@@ -2,27 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1>" />
-    <title>sphinxlectern by Hackbright Academy | sphinxlectern by Hackbright Academy  documentation</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sphinx-Lectern | sphinx-lectern, a Sphinx extension by Hackbright Academy  documentation</title>
+    <link rel="stylesheet" href="_static/bulma.css" />
+    <link href="_static/pygments.css" rel="stylesheet" />
+    <link href="_static/main.css" rel="stylesheet" />
     <link
-      href="_static/pygments.css"
       rel="stylesheet"
-      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      crossorigin="anonymous"
     />
-    <link href="_static/main.css" rel="stylesheet" type="text/css" />
-
-    <script src="_static/pdfobject.min.js"></script>
   </head>
   <body>
-    <div id="handouts-container">
-      <header id="page-header">
-        <p id="project-title">sphinxlectern by Hackbright Academy</p>
-        <p id="page-title">sphinxlectern by Hackbright Academy</p>
-      </header>
+    <header class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://hackbrightacademy.github.io/sphinx-lectern">
+          <img src="_static/hb-logo.png" />
+          <p>Sphinx-Lectern</p>
+        </a>
+        <div class="links-out">
+          <a
+            class="navbar-item"
+            href="https://github.com/hackbrightacademy/sphinx-lectern"
+          >
+            <span class="icon is-large">
+              <i class="fab fa-github fa-2x"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </header>
 
-      <nav id="page-toc"><ul>
-<li><a class="reference internal" href="#">sphinxlectern by Hackbright Academy</a><ul>
+    <div class="columns">
+      <aside class="column is-3">
+        <nav><ul>
+<li><a class="reference internal" href="#">Sphinx-Lectern</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#install">Install</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#things-you-can-do">Things You Can Do</a><ul>
 <li><a class="reference internal" href="#multiple-choice-questions">Multiple Choice Questions</a></li>
 </ul>
@@ -31,29 +49,73 @@
 </li>
 </ul>
 </nav>
+      </aside>
 
-      <main id="page-content">  <section class="section" id="sphinxlectern-by-hackbright-academy">
-<h1>sphinxlectern by Hackbright Academy<a class="headerlink" href="#sphinxlectern-by-hackbright-academy" title="Permalink to this headline">¶</a></h1>
+      <main class="column is-9">
+        <div id="page-content">
+           <section class="section" id="sphinx-lectern">
+<h1>Sphinx-Lectern<a class="headerlink" href="#sphinx-lectern" title="Permalink to this headline">¶</a></h1>
+<p><cite>sphinx-lectern</cite> is a <a class="reference external" href="https://www.sphinx-doc.org/en/master" rel="noreferrer noopener" target="_blank">Sphinx</a> extension
+<a class="reference external" href="https://hackbrighacademy.com/" rel="noreferrer noopener" target="_blank">we</a> made to build our curriculum.</p>
+<p>The simple idea behind <cite>sphinx-lectern</cite> — start with one document ➡️ <strong>instantly generate</strong>
+lecture handouts, slide decks, tests, demo code, or anything else we’ve yet to come up with 🌈!</p>
+<div class="admonition warning">
+<p class="admonition-title">This page is under construction</p>
+<div class="admonition-body docutils container">
+<p>Pardon our dust!</p>
+</div>
+</div>
+<section class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<section class="section" id="install">
+<h3>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
+<p>You can install <cite>sphinx-lectern</cite> directly from its <a class="reference external" href="https://github.com/hackbrightacademy/sphinx-lectern" rel="noreferrer noopener" target="_blank">GitHub repository</a>
+(we haven’t published this in PyPI yet but… someday…).</p>
+<pre class="console literal-block">$ <span class="cmd">pip install git+ssh://git&#64;github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern</span></pre>
+<p>Then, add <code class="docutils literal notranslate"><span class="pre">&quot;sphinxlectern&quot;</span></code> to <cite>extensions</cite> in <cite>conf.py</cite>:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">conf.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="c1"># ...</span>
+<span class="hll">   <span class="s2">&quot;sphinxlectern&quot;</span>
+</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
 <section class="section" id="things-you-can-do">
 <h2>Things You Can Do<a class="headerlink" href="#things-you-can-do" title="Permalink to this headline">¶</a></h2>
 <section class="section" id="multiple-choice-questions">
 <h3>Multiple Choice Questions<a class="headerlink" href="#multiple-choice-questions" title="Permalink to this headline">¶</a></h3>
-<p>You can put a question in the <cite>knowledge-check</cite> admonition:</p>
-<div class="admonition knowledge_check">
-<p class="admonition-title"></p>
-<div class="admonition-body docutils container">
-<div class="mcq" data-id="mcq-1" data-ans="b" data-feedback="{&quot;a&quot;: &quot;Actually both languages can be parsed (determining the structure of the sentence), but formal languages can be parsed more easily in software.&quot;, &quot;b&quot;: &quot;All of these can be present in natural languages, but cannot exist in formal languages&quot;, &quot;c&quot;: &quot;There are several differences between the two but they are also similar&quot;, &quot;d&quot;: &quot;These are the similarities between the two&quot;}"><p>The differences between natural and formal languages include:</p>
+<div class="docexample"><div class="docexample-render docutils container">
+<div class="mcq" data-id="mcq-1" data-ans="b" data-feedback="{&quot;a&quot;: &quot;We do teach coding but we&#x27;re not just a coding bootcamp&quot;, &quot;b&quot;: &quot;Hackbright is a software engineering bootcamp!&quot;}"><p>True or false: Hackbright is a coding bootcamp</p>
 <div class="docutils container">
 <ol class="upperalpha">
-<div class="mcq-answer-group"><input id="mcq-1-a" type="radio" name="mcq-1" value="a" /><label for="mcq-1-a"><li><p>Natural languages can be parsed while formal languages cannot</p>
-</li></label></div><div class="mcq-answer-group"><input id="mcq-1-b" type="radio" name="mcq-1" value="b" /><label for="mcq-1-b"><li><p>Ambiguity, redundancy, and literalness</p>
-</li></label></div><div class="mcq-answer-group"><input id="mcq-1-c" type="radio" name="mcq-1" value="c" /><label for="mcq-1-c"><li><p>There are no differences between natural and formal languages</p>
-</li></label></div><div class="mcq-answer-group"><input id="mcq-1-d" type="radio" name="mcq-1" value="d" /><label for="mcq-1-d"><li><p>Tokens, structure, syntax, and semantics</p>
+<div class="mcq-answer-group"><input id="mcq-1-a" type="radio" name="mcq-1" value="a" /><label for="mcq-1-a"><li><p>True</p>
+</li></label></div><div class="mcq-answer-group"><input id="mcq-1-b" type="radio" name="mcq-1" value="b" /><label for="mcq-1-b"><li><p>False</p>
 </li></label></div></ol>
 </div>
 <button class="mcq-answer-checker">Check Answer</button><p class="mcq-alert"></p></div></div>
+<div class="docexample-src docutils container">
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">mcq</span><span class="p">::</span> True or false: Hackbright is a coding bootcamp
+  <span class="nc">:answer:</span> B
+
+  <span class="m">A.</span> True
+
+     <span class="nc">:feedback:</span> We do teach coding but we&#39;re not just a coding bootcamp
+
+  <span class="m">B.</span> False
+
+     <span class="nc">:feedback:</span> Hackbright is a software engineering bootcamp!
+</pre></div>
 </div>
-<p>A question that’s not inside an admonition:</p>
+</div>
+</div><p>You can put a question in the <cite>knowledge-check</cite> admonition:</p>
+<div class="docexample"><div class="docexample-render docutils container">
+<div class="admonition knowledge_check">
+<p class="admonition-title"></p>
+<div class="admonition-body docutils container">
 <div class="mcq" data-id="mcq-2" data-ans="b" data-feedback="{&quot;a&quot;: &quot;Actually both languages can be parsed (determining the structure of the sentence), but formal languages can be parsed more easily in software.&quot;, &quot;b&quot;: &quot;All of these can be present in natural languages, but cannot exist in formal languages&quot;, &quot;c&quot;: &quot;There are several differences between the two but they are also similar&quot;, &quot;d&quot;: &quot;These are the similarities between the two&quot;}"><p>The differences between natural and formal languages include:</p>
 <div class="docutils container">
 <ol class="upperalpha">
@@ -63,23 +125,55 @@
 </li></label></div><div class="mcq-answer-group"><input id="mcq-2-d" type="radio" name="mcq-2" value="d" /><label for="mcq-2-d"><li><p>Tokens, structure, syntax, and semantics</p>
 </li></label></div></ol>
 </div>
-<button class="mcq-answer-checker">Check Answer</button><p class="mcq-alert"></p></div><div class="mcq" data-id="mcq-3" data-ans="b" data-feedback="{&quot;a&quot;: &quot;We do teach coding but we&#x27;re not just a coding bootcamp&quot;, &quot;b&quot;: &quot;Hackbright is a software engineering bootcamp!&quot;}"><p>True or false: Hackbright is a coding bootcamp</p>
+<button class="mcq-answer-checker">Check Answer</button><p class="mcq-alert"></p></div></div>
+</div>
+</div>
+<div class="docexample-src docutils container">
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">knowledge-check</span><span class="p">::</span>
+
+<span class="p">  ..</span> <span class="ow">mcq</span><span class="p">::</span> The differences between natural and formal languages include:
+    <span class="nc">:answer:</span> B
+
+    <span class="m">A.</span> Natural languages can be parsed while formal languages cannot
+
+       <span class="nc">:feedback:</span> Actually both languages can be parsed (determining the structure of the sentence),
+                  but formal languages can be parsed more easily in software.
+
+    <span class="m">B.</span> Ambiguity, redundancy, and literalness
+
+       <span class="nc">:feedback:</span> All of these can be present in natural languages, but cannot exist in formal languages
+
+    <span class="m">C.</span> There are no differences between natural and formal languages
+
+       <span class="nc">:feedback:</span> There are several differences between the two but they are also similar
+
+    <span class="m">D.</span> Tokens, structure, syntax, and semantics
+
+       <span class="nc">:feedback:</span> These are the similarities between the two
+</pre></div>
+</div>
+</div>
+</div><p>A question that’s not inside an admonition:</p>
+<div class="mcq" data-id="mcq-3" data-ans="b" data-feedback="{&quot;a&quot;: &quot;Actually both languages can be parsed (determining the structure of the sentence), but formal languages can be parsed more easily in software.&quot;, &quot;b&quot;: &quot;All of these can be present in natural languages, but cannot exist in formal languages&quot;, &quot;c&quot;: &quot;There are several differences between the two but they are also similar&quot;, &quot;d&quot;: &quot;These are the similarities between the two&quot;}"><p>The differences between natural and formal languages include:</p>
 <div class="docutils container">
 <ol class="upperalpha">
-<div class="mcq-answer-group"><input id="mcq-3-a" type="radio" name="mcq-3" value="a" /><label for="mcq-3-a"><li><p>True</p>
-</li></label></div><div class="mcq-answer-group"><input id="mcq-3-b" type="radio" name="mcq-3" value="b" /><label for="mcq-3-b"><li><p>False</p>
+<div class="mcq-answer-group"><input id="mcq-3-a" type="radio" name="mcq-3" value="a" /><label for="mcq-3-a"><li><p>Natural languages can be parsed while formal languages cannot</p>
+</li></label></div><div class="mcq-answer-group"><input id="mcq-3-b" type="radio" name="mcq-3" value="b" /><label for="mcq-3-b"><li><p>Ambiguity, redundancy, and literalness</p>
+</li></label></div><div class="mcq-answer-group"><input id="mcq-3-c" type="radio" name="mcq-3" value="c" /><label for="mcq-3-c"><li><p>There are no differences between natural and formal languages</p>
+</li></label></div><div class="mcq-answer-group"><input id="mcq-3-d" type="radio" name="mcq-3" value="d" /><label for="mcq-3-d"><li><p>Tokens, structure, syntax, and semantics</p>
 </li></label></div></ol>
 </div>
 <button class="mcq-answer-checker">Check Answer</button><p class="mcq-alert"></p></div></section>
 </section>
 </section>
  
+        </div>
       </main>
-
-      <footer id="page-footer">
-        <p>&copy; </p>
-      </footer>
     </div>
+
+    <footer id="page-footer">
+      <p>&copy; </p>
+    </footer>
 
     <script src="_static/main.js"></script>
   </body>
