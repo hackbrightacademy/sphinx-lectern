@@ -80,3 +80,19 @@ pre {
     }
   }
 }
+
+.admonition {
+  @extend .message;
+}
+
+.admonition-title {
+  @extend .message-header;
+}
+
+.admonition-body {
+  @extend .message-body;
+}
+
+.warning {
+  @extend .is-warning;
+}
