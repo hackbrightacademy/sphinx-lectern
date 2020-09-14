@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700|Source+Sans+Pro:400,400i,700,700i,600,600i&display=swap');
+@import './common/vars.css';
+
+body {
+  & > .columns {
+    & > aside,
+    & > main {
+      /* margin-top: 60px; */
+      /* padding: 2em; */
+    }
+
+    & > aside {
+      background: var(--lightGray);
+
+      & > nav > ul > li > a {
+        display: none;
+      }
+    }
+
+    & > main {
+      /* margin-left: 300px; */
+      /* padding-left: 4em; */
+    }
+  }
+}
+
+.navbar {
+  border-bottom: 3px solid var(--gray);
+
+  .navbar-brand {
+    width: 100%;
+
+    p {
+      margin: 0 0.25em;
+      color: black;
+      font-size: 2em;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+  }
+
+  .links-out {
+    margin-left: auto;
+  }
+}
+
+nav {
+  padding: 0.75em;
+  ul {
+    padding: 0;
+    list-style-type: none;
+
+    a {
+      color: black;
+    }
+
+    li {
+      padding: 0.5em;
+      padding-bottom: 0;
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.03em;
+    }
+  }
+
+  & > ul > li {
+    padding: 0;
+
+    & > ul > li {
+      padding-top: 1em;
+      padding-left: 0;
+
+      & > ul > li {
+        font-weight: normal;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+#page-content {
+  /* max-width: 900px; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  &:hover .headerlink {
+    display: inline;
+  }
+}
+
+.headerlink {
+  display: none;
+  opacity: 50%;
+
+  &:before {
+    content: ' ';
+  }
+}
+
+.section {
+  padding: 2em 0;
+
+  .section > .section {
+    padding: 1em 0;
+  }
+}
+
+cite {
+  font-weight: bold;
+}
+
+.console {
+  .cmd {
+    color: yellow;
+    font-weight: 600;
+  }
+}
+
+.docexample .docexample-render {
+  font-family: var(--fontSans);
+}
