@@ -24,12 +24,27 @@
   input[type='radio'] {
     margin-top: 0;
     margin-bottom: 0;
-  }
 
-  label {
-    display: block;
-    width: 100%;
-    cursor: pointer;
+    & + label {
+      display: block;
+      width: 100%;
+      cursor: pointer;
+
+      & > li {
+        padding-left: 0.5em;
+
+        &:before {
+          float: left;
+          content: counter(lictr, var(--listCounterStyle)) '.';
+          margin-right: 0.25em;
+          font-weight: bold;
+        }
+
+        & > * {
+          margin-left: 1em !important;
+        }
+      }
+    }
   }
 }
 

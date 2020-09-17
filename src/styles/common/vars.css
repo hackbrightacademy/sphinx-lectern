@@ -27,9 +27,18 @@
   --titleBg: var(--darkGray);
   --titleColor: white;
   --titlePrefix: '';
+  --listCounterStyle: decimal;
 }
 
 .console {
   --bg: #333;
   --color: var(--lightGray);
+}
+
+.upperalpha {
+  --listCounterStyle: upper-alpha;
+}
+
+.loweralpha {
+  --listCounterStyle: lower-alpha;
 }

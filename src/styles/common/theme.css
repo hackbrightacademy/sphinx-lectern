@@ -18,6 +18,10 @@ h6 {
   &:hover a.headerlink {
     display: inline;
   }
+
+  code {
+    font-size: unset;
+  }
 }
 
 a {
@@ -48,26 +52,19 @@ ol {
   padding: 0;
   counter-reset: lictr;
 
-  li {
+  & > li {
     padding-left: 0.5em;
 
     &:before {
       float: left;
-      content: counter(lictr) '.';
+      content: counter(lictr, var(--listCounterStyle)) '.';
       margin-right: 0.25em;
       font-weight: bold;
     }
 
     & > * {
-      padding-left: 1em;
+      margin-left: 1em !important;
     }
-  }
-
-  &.upperalpha li:before {
-    content: counter(lictr, upper-alpha) '.';
-  }
-  &.loweralpha li:before {
-    content: counter(lictr, lower-alpha) '.';
   }
 }
 

@@ -6,10 +6,12 @@ const sass = require('gulp-sass');
 
 sass.compiler = require('node-sass');
 
-const sassBuild = () => {
-  return src('./styles/bulma.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(dest('../docs/site/theme/static'));
+const sassBuild = (entrypoint, destpath = '../site/theme/static') => {
+  return () => {
+    return src(entrypoint)
+      .pipe(sass().on('error', sass.logError))
+      .pipe(dest(destpath));
+  };
 };
 
 const css = (entrypoint, out, destpath = '../sphinxlectern/themes') => {
@@ -51,10 +53,14 @@ const handouts = parallel(
   css('./styles/handouts.css', 'handouts/static/main.css')
 );
 
+const book = parallel(
+  css('./styles/book.css', 'book.css', '.')
+);
+
 const docs = parallel(
-  js('./scripts/docs.js', 'static/main.js', '../docs/site/theme'),
-  css('./styles/docs.css', 'static/main.css', '../docs/site/theme'),
-  sassBuild
+  js('./scripts/docs.js', 'static/main.js', '../site/theme'),
+  css('./styles/docs.css', 'static/main.css', '../site/theme'),
+  sassBuild('./styles/bulma.scss')
 );
 
 exports.watch = () => {
@@ -63,4 +69,4 @@ exports.watch = () => {
     parallel(revealjs, handouts, docs, sassBuild)
   );
 };
-exports.default = parallel(revealjs, handouts, docs);
+exports.default = parallel(revealjs, handouts, docs, book);
