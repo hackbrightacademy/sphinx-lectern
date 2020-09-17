@@ -74,6 +74,18 @@ pre {
     .admonition {
       background: unset;
     }
+
+    .admonition-title {
+      border-radius: 0;
+      line-height: unset;
+      background: unset;
+    }
+
+    .admonition-body {
+      border: 0;
+      border-radius: unset;
+      color: unset;
+    }
   }
 
   .docexample-src {
