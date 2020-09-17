@@ -5416,6 +5416,13 @@ pre {
       .docexample .docexample-render h5:hover a.headerlink,
       .docexample .docexample-render h6:hover a.headerlink {
         display: inline; }
+      .docexample .docexample-render h1 code,
+      .docexample .docexample-render h2 code,
+      .docexample .docexample-render h3 code,
+      .docexample .docexample-render h4 code,
+      .docexample .docexample-render h5 code,
+      .docexample .docexample-render h6 code {
+        font-size: unset; }
     .docexample .docexample-render a {
       text-decoration: none; }
       .docexample .docexample-render a:hover {
@@ -5433,19 +5440,15 @@ pre {
       list-style: none;
       padding: 0;
       counter-reset: lictr; }
-      .docexample .docexample-render ol li {
+      .docexample .docexample-render ol > li {
         padding-left: 0.5em; }
-        .docexample .docexample-render ol li:before {
+        .docexample .docexample-render ol > li:before {
           float: left;
-          content: counter(lictr) ".";
+          content: counter(lictr, var(--listCounterStyle)) ".";
           margin-right: 0.25em;
           font-weight: bold; }
-        .docexample .docexample-render ol li > * {
-          padding-left: 1em; }
-      .docexample .docexample-render ol.upperalpha li:before {
-        content: counter(lictr, upper-alpha) "."; }
-      .docexample .docexample-render ol.loweralpha li:before {
-        content: counter(lictr, lower-alpha) "."; }
+        .docexample .docexample-render ol > li > * {
+          margin-left: 1em !important; }
     .docexample .docexample-render dt {
       font-weight: bold; }
       .docexample .docexample-render dt code {
@@ -5835,10 +5838,19 @@ pre {
       .docexample .docexample-render .mcq-answer-group input[type='radio'] {
         margin-top: 0;
         margin-bottom: 0; }
-      .docexample .docexample-render .mcq-answer-group label {
-        display: block;
-        width: 100%;
-        cursor: pointer; }
+        .docexample .docexample-render .mcq-answer-group input[type='radio'] + label {
+          display: block;
+          width: 100%;
+          cursor: pointer; }
+          .docexample .docexample-render .mcq-answer-group input[type='radio'] + label > li {
+            padding-left: 0.5em; }
+            .docexample .docexample-render .mcq-answer-group input[type='radio'] + label > li:before {
+              float: left;
+              content: counter(lictr, var(--listCounterStyle)) ".";
+              margin-right: 0.25em;
+              font-weight: bold; }
+            .docexample .docexample-render .mcq-answer-group input[type='radio'] + label > li > * {
+              margin-left: 1em !important; }
     .docexample .docexample-render .mcq-correct {
       --mcqAlertBg: #bdecd0;
       --mcqAlertColor: var(--green);
@@ -5860,6 +5872,16 @@ pre {
         margin-right: 0.5em; }
     .docexample .docexample-render .mcq p {
       margin-top: 0.5em; }
+    .docexample .docexample-render .admonition {
+      background: unset; }
+    .docexample .docexample-render .admonition-title {
+      border-radius: 0;
+      line-height: unset;
+      background: unset; }
+    .docexample .docexample-render .admonition-body {
+      border: 0;
+      border-radius: unset;
+      color: unset; }
   .docexample .docexample-src {
     border-top: 2px solid #ffdd57; }
     .docexample .docexample-src pre {

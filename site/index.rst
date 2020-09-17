@@ -37,6 +37,9 @@ Then, add ``"sphinxlectern"`` to `extensions` in `conf.py`:
      "sphinxlectern"
   ]
 
+Slides
+======
+
 Things You Can Do
 =================
 

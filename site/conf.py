@@ -6,9 +6,14 @@ see:
 """
 import sys
 import os
+from pathlib import Path
 
-sys.path.append(os.path.abspath("./../../"))
-sys.path.append(os.path.abspath("./"))
+sys.path.extend(
+    [
+        os.path.join(str(Path(__file__).resolve().parent), "../"),
+        os.path.abspath(str(Path(__file__).resolve().parent)),
+    ]
+)
 
 master_doc = "index"
 extensions = ["docexample", "sphinxlectern", "sphinxlectern.mcq"]
@@ -16,5 +21,6 @@ project = "sphinx-lectern, a Sphinx extension by Hackbright Academy"
 
 html_theme = handouts_theme = "docs"
 pygments_style = "sphinx"
+html_theme_path = [os.path.abspath(Path(__file__).resolve().parent)]
 html_theme_options = {"show_backlink": False}
 html_add_permalink = "#"
