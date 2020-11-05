@@ -3,7 +3,8 @@
 @import './common/vars.css';
 @import './common/theme.css';
 
-body {
+body,
+.reveal-viewport {
   font-size: 38px;
   line-height: 1.3em;
 }
@@ -49,7 +50,9 @@ body {
     }
   }
 
-  ul, ol, dd {
+  ul,
+  ol,
+  dd {
     padding-left: 1em;
   }
 
@@ -59,11 +62,14 @@ body {
     }
   }
 
-  li, dt, dd {
+  li,
+  dt,
+  dd {
     text-align: left;
   }
 
-  dd, li {
+  dd,
+  li {
     & > :first-child {
       margin-top: 0;
     }
@@ -88,16 +94,16 @@ body {
 
   div.literal-block,
   div.highlight,
-  div[class*="highlight-"],
+  div[class*='highlight-'],
   pre {
     padding: 1rem;
-    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
     border: 0;
     margin: 1.5rem;
 
     div.literal-block,
     div.highlight,
-    div[class*="highlight-"],
+    div[class*='highlight-'],
     pre {
       padding: 0;
       box-shadow: none;
@@ -126,12 +132,14 @@ body {
       margin: 0;
     }
 
-    td, th {
+    td,
+    th {
       padding: 0 0.25em;
       font-size: 0.85em;
     }
 
-    td, th {
+    td,
+    th {
       &:first-child {
         padding-left: 0.25em;
       }
@@ -220,7 +228,7 @@ body {
     .navigate-up,
     .navigate-down {
       &.highlight {
-        animation: none
+        animation: none;
       }
     }
 
@@ -370,5 +378,3 @@ body {
     }
   }
 }
-
-
