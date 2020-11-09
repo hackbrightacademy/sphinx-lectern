@@ -101,7 +101,10 @@ li {
 
 li {
   margin: 0.5em 0;
-  counter-increment: lictr;
+
+  & > ol {
+    counter-increment: lictr;
+  }
 }
 
 dd {

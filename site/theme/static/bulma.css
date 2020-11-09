@@ -5470,8 +5470,9 @@ pre {
     .docexample .docexample-render li p + p {
       margin: 0.5em 0; }
     .docexample .docexample-render li {
-      margin: 0.5em 0;
-      counter-increment: lictr; }
+      margin: 0.5em 0; }
+      .docexample .docexample-render li > ol {
+        counter-increment: lictr; }
     .docexample .docexample-render dd {
       margin: 0 0 0.5em 0; }
     .docexample .docexample-render cite,
