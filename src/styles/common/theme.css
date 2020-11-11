@@ -102,7 +102,7 @@ li {
 li {
   margin: 0.5em 0;
 
-  & > ol {
+  ol > li {
     counter-increment: lictr;
   }
 }

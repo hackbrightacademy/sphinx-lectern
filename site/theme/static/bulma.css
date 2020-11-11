@@ -5471,7 +5471,7 @@ pre {
       margin: 0.5em 0; }
     .docexample .docexample-render li {
       margin: 0.5em 0; }
-      .docexample .docexample-render li > ol {
+      .docexample .docexample-render li ol > li {
         counter-increment: lictr; }
     .docexample .docexample-render dd {
       margin: 0 0 0.5em 0; }
