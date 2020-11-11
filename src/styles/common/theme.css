@@ -54,6 +54,7 @@ ol {
 
   & > li {
     padding-left: 0.5em;
+    counter-increment: lictr;
 
     &:before {
       float: left;
@@ -101,10 +102,6 @@ li {
 
 li {
   margin: 0.5em 0;
-
-  ol > li {
-    counter-increment: lictr;
-  }
 }
 
 dd {

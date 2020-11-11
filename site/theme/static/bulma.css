@@ -5441,7 +5441,8 @@ pre {
       padding: 0;
       counter-reset: lictr; }
       .docexample .docexample-render ol > li {
-        padding-left: 0.5em; }
+        padding-left: 0.5em;
+        counter-increment: lictr; }
         .docexample .docexample-render ol > li:before {
           float: left;
           content: counter(lictr, var(--listCounterStyle)) ".";
@@ -5471,8 +5472,6 @@ pre {
       margin: 0.5em 0; }
     .docexample .docexample-render li {
       margin: 0.5em 0; }
-      .docexample .docexample-render li ol > li {
-        counter-increment: lictr; }
     .docexample .docexample-render dd {
       margin: 0 0 0.5em 0; }
     .docexample .docexample-render cite,
