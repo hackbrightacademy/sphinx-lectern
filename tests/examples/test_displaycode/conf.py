@@ -11,6 +11,6 @@ sys.path.append(os.path.abspath("./../../.."))
 
 master_doc = "index"
 extensions = ["sphinxlectern"]
-
+html_theme = handouts_theme = "handouts"
 revealjs_theme = "revealjs"
 pygments_style = "sphinx"

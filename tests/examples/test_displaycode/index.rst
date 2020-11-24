@@ -62,4 +62,17 @@ Adding Captions
     return workInProgressHook;
   }
 
+.. code-block:: jsx
 
+  const Hello = () => {
+    return (
+      <p>Hi</p>
+    );
+  }
+
+.. mcq:: Hi
+  :answer: A
+
+  A. Wow
+
+     :feedback: Wow
