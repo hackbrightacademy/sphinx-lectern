@@ -10,11 +10,7 @@ beautifulsoup4 = "*"
 mypy = "*"
 black = "*"
 python-githooks = "*"
-
-[packages]
-
-[requires]
-python_version = "3.8"
+jsx-lexer = "*"
 
 [scripts]
 init = "githooks"
