@@ -5440,15 +5440,15 @@ pre {
       list-style: none;
       padding: 0;
       counter-reset: lictr; }
-      .docexample .docexample-render ol > li {
-        padding-left: 0.5em;
-        counter-increment: lictr; }
-        .docexample .docexample-render ol > li:before {
+      .docexample .docexample-render ol li {
+        counter-increment: lictr;
+        padding-left: 0.5em; }
+        .docexample .docexample-render ol li:before {
           float: left;
           content: counter(lictr, var(--listCounterStyle)) ".";
           margin-right: 0.25em;
           font-weight: bold; }
-        .docexample .docexample-render ol > li > * {
+        .docexample .docexample-render ol li > * {
           margin-left: 1em !important; }
     .docexample .docexample-render dt {
       font-weight: bold; }
