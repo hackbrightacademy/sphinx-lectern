@@ -1,6 +1,6 @@
 """Sphinx writer for slides."""
 
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 from sphinx.application import Sphinx
 from docutils import nodes
 
@@ -105,15 +105,10 @@ class RevealJSBuilder(DontBuildAdditionalPages):
     """Builder for making RevealJS using Sphinx."""
 
     name = "revealjs"
+    default_translator_class = RevealJSTranslator
 
-    def init(self):
-        """Override StandaloneHTMLBuilder.init."""
-
-        config = self.config
-
-        self.config.html_theme = config.revealjs_theme
-        self.config.imgmath_dvipng_args = config.revealjs_imgmath_dvipng_args
-        return super().init()
+    def get_theme_config(self) -> Tuple[str, Dict]:
+        return self.config.revealjs_theme, self.config.html_theme_options
 
 
 def setup(app: Sphinx) -> None:
