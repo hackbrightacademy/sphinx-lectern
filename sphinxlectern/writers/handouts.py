@@ -1,5 +1,6 @@
 """Sphinx writer for handouts."""
 
+from typing import Dict, Tuple
 from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.builders.singlehtml import SingleFileHTMLBuilder
@@ -59,16 +60,19 @@ class HandoutsBuilder(DontBuildAdditionalPages):
     """Builder for making HTML handouts using Sphinx."""
 
     name = "handouts"
+    default_translator_class = HandoutsTranslator
+
+    def get_theme_config(self) -> Tuple[str, Dict]:
+        return self.config.handouts_theme, self.config.html_theme_options
 
 
 class SinglePageHandoutsBuilder(SingleFileHTMLBuilder):
     name = "singlepage"
+    default_translator_class = HandoutsTranslator
 
 
 def setup(app: Sphinx) -> None:
     app.add_builder(HandoutsBuilder)
     app.add_builder(SinglePageHandoutsBuilder)
-    app.set_translator("handouts", HandoutsTranslator)
-    app.set_translator("singlepage", HandoutsTranslator)
     app.add_config_value("handouts_theme", "handouts", "env")
     app.add_config_value("handouts_imgmath_dvipng_args", [], "env")

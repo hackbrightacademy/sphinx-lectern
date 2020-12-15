@@ -1,4 +1,5 @@
 from typing import List
+from sphinx.testing.path import path
 from sphinx.application import Sphinx
 
 from pathlib import Path
@@ -32,6 +33,8 @@ class DocExample(Directive):
     has_content = True
     option_spec = {"builder": directives.unchanged}
 
+    # TODO: if builder is revealjs, take code inside and turn it into another
+    # document, build that document with Sphinx
     def run(self):
         node = docexample("\n".join(self.content), **self.options)
         self.add_name(node)
@@ -55,4 +58,7 @@ class DocExample(Directive):
 def setup(app: Sphinx):
     app.add_directive("docexample", DocExample)
     app.add_node(docexample, handouts=(visit_docexample, depart_docexample))
-    app.add_html_theme("docs", "./theme")
+    app.add_html_theme(
+        "docs",
+        path(__file__).parent.abspath() / "theme",
+    )

@@ -21,14 +21,3 @@ def setup(app: Sphinx) -> None:
     writers.setup(app)
     references.setup(app)
     mcq.setup(app)
-
-    def debug_doctree(app, doctree):
-        import pdb
-
-        pdb.set_trace()
-
-    def output_doctree(app, doctree):
-
-        print(doctree.traverse())
-
-    app.connect("doctree-read", output_doctree)

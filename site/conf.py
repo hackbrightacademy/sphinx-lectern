@@ -16,7 +16,7 @@ sys.path.extend(
 )
 
 master_doc = "index"
-extensions = ["docexample", "sphinxlectern", "sphinxlectern.mcq"]
+extensions = ["docexample", "sphinxlectern"]
 project = "sphinx-lectern, a Sphinx extension by Hackbright Academy"
 
 html_theme = handouts_theme = "docs"

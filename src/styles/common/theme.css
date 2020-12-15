@@ -52,9 +52,9 @@ ol {
   padding: 0;
   counter-reset: lictr;
 
-  & > li {
-    padding-left: 0.5em;
+  li {
     counter-increment: lictr;
+    padding-left: 0.5em;
 
     &:before {
       float: left;
