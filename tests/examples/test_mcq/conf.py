@@ -14,3 +14,5 @@ extensions = ["sphinxlectern", "sphinxlectern.mcq"]
 
 html_theme = handouts_theme = "handouts"
 pygments_style = "sphinx"
+mcq_build_answerkey = True
+mcq_build_scantron = True

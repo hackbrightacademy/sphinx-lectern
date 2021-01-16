@@ -11,11 +11,14 @@ You can put a question in the `knowledge-check` admonition:
 
    .. mcq:: The differences between natural and formal languages include:
      :answer: B
+     :show_feedback:
 
      A. Natural languages can be parsed while formal languages cannot
 
-        :feedback: Actually both languages can be parsed (determining the structure of the sentence),
-                   but formal languages can be parsed more easily in software.
+        :feedback: Actually both languages can be parsed (determining the structure of the
+                   sentence), but formal languages can be parsed more easily in software.
+
+                   I'm continuing the paragraph here **and** adding *styles* to see if the extension can handle nested text
 
      B. Ambiguity, redundancy, and literalness
 
@@ -36,6 +39,7 @@ A question that's not inside an admonition:
 
 .. mcq:: The differences between natural and formal languages include:
   :answer: B
+  :numbered:
 
   A. Natural languages can be parsed while formal languages cannot
 
@@ -56,6 +60,13 @@ A question that's not inside an admonition:
 
 .. mcq:: True or false: Hackbright is a coding bootcamp
   :answer: B
+  :numbered:
+
+  You can have even more complex stuff in here. I hope.
+
+  .. code-block:: python
+
+    print("hi")
 
   A. True
 
@@ -63,4 +74,4 @@ A question that's not inside an admonition:
 
   B. False
 
-     :feedback: Hackbright is a software engineering bootcamp!
+     :feedback: `Hackbright` is a software engineering bootcamp!

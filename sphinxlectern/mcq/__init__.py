@@ -2,6 +2,9 @@
 
 Multiple-choice questions.
 
+Note that you MUST use upperalpha enumerated lists to list the answer choices.
+Other types of lists won't work.
+
 Example:
 
   .. mcq:: The differences between natural and formal languages include:
@@ -9,12 +12,13 @@ Example:
 
     A. Natural languages can be parsed while formal languages cannot
 
-       :feedback: Actually both languages can be parsed (determining the structure of the sentence),
-       but formal languages can be parsed more easily in software.
+       :feedback: Actually both languages can be parsed (determining the structure of the
+                  sentence), but formal languages can be parsed more easily in software.
 
     B. Ambiguity, redundancy, and literalness
 
-       :feedback: All of these can be resent in natural languages, but cannot exist in formal languages
+       :feedback: All of these can be resent in natural languages, but cannot exist in
+                  formal languages
 
     C. There are no differences between natural and formal languages
 
@@ -26,146 +30,231 @@ Example:
 """
 
 from typing import List, Union, Optional
-from docutils.nodes import Node
+from typing import cast
 from sphinx.application import Sphinx
 
-from docutils.parsers.rst import Directive, directives
-from docutils import nodes
-from docutils.nodes import General, Element
 import json
 import html
+from sphinx.util.docutils import SphinxDirective
+from sphinx.util.docfields import _is_single_paragraph
+
+from docutils import nodes
+from docutils.parsers.rst import directives
+
+from . import mcqnodes, answerkey, scantron
+
+from .mcqnodes import mcq, mcq_body, mcq_choices_list, mcq_choice, mcq_choice_feedback
+from .answerkey import AnswerKey
 
 
-class mcq(General, Element):
-    """Multiple choice question node."""
+def _list_with_field_feedback(node: nodes.Node) -> Optional[nodes.field_list]:
+    """Search node for a field list with a field named "feedback"."""
+
+    for field in node.traverse(nodes.field):
+        field_name = field.children[0]
+        if field_name.astext().lower() == "feedback":
+            return field.parent
+
+    return None
 
 
-class mcq_choice(General, Element):
-    """Potential answer for a multiple choice question."""
+def _transform_field_list(
+    node: nodes.field_list,
+) -> mcq_choice_feedback:
+    """Turn field list into mcq_choice_feedback.
 
-    def __init__(self, rawsource: str = "", value: str = "", *children, **attributes):
-        super().__init__(rawsource, *children, **attributes)
-        self.value = value
-        self["names"] += value
+    Search field list for field named 'feedback' and turn its body into mcq_choice_feedback node.
+    """
+
+    for field in node.children:
+        field_name, field_body = field.children
+
+        if field_name.astext().strip().lower() == "feedback":
+            # Collect the content, trying not to keep unnecessary paragraphs
+            if _is_single_paragraph(field_body):
+                paragraph = cast(nodes.paragraph, field_body[0])
+                content = paragraph.children
+            else:
+                content = field_body.children
+
+            break
+    else:
+        content = []
+
+    return mcq_choice_feedback("", nodes.paragraph("", "", *content))
 
 
-class Mcq(Directive):
+def _transform_enumerated_list(node: nodes.enumerated_list) -> mcq_choices_list:
+    """Transform enumerated_list node into mcq_choices_list."""
+
+    choices_node = mcq_choices_list("")
+    choices_node += node.children
+    choices_node.update_all_atts(node)
+    # TODO: maybe do node.replace_self(choices_node) which will call
+    # update_all_atts for me...?
+    # just kidding, tit calls update_basic_atts, not all_atts
+
+    return choices_node
+
+
+def _transform_list_item(node: nodes.list_item) -> mcq_choice:
+    """Transform list_item node to mcq_choice."""
+
+    choice_node = mcq_choice("", *node.children)
+    choice_node.update_all_atts(node)
+
+    return choice_node
+
+
+class Mcq(SphinxDirective):
     """Multiple choice question directive."""
 
     has_content = True
     required_arguments = 1
     final_argument_whitespace = True
     node_class = mcq
-    option_spec = {"class": directives.class_option, "answer": directives.unchanged}
-    answer_choices = list("abcdefghijklmnop")
+    option_spec = {
+        "class": directives.class_option,
+        "answer": directives.unchanged,
+        "name": directives.unchanged,
+        "numbered": directives.flag,
+        "show_feedback": directives.flag,
+    }
+    choice_indexes = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-    @staticmethod
-    def find_feedback_field_body(
-        node: nodes.field_list,
-    ) -> Union[None, List[nodes.paragraph]]:
-        for field in node.children:
-            field_name, field_body = field.children
-            if field_name.astext() == "feedback":
-                return field_body.children[0].astext().replace("\n", " ")
-        return None
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-    def collect_feedback(self, node: mcq):
-        """Collect feedback for each choice (if it exists)."""
+        if not getattr(self.env, "_mcq_count", None):
+            self.env._mcq_count = 0
+        self.env._mcq_count += 1
 
-        node["feedback"] = {}
+        # Create name if it doesn't exist
+        if not self.options.get("name"):
+            self.options["name"] = f"mcq-{self.env._mcq_count}"
 
-        counter = 0
-        for l_item in node.traverse(nodes.list_item):
-            if fieldlist := l_item.children[
-                l_item.first_child_matching_class(nodes.field_list)
-            ]:
-                field_body_text = self.find_feedback_field_body(fieldlist)
-                node["feedback"][self.answer_choices[counter]] = field_body_text
+        # Parse flags in self.options to True/False
+        for opt_name, opt_type in self.option_spec.items():
+            if opt_type is directives.flag:
+                self.options[opt_name] = opt_name in self.options
 
-                # Remove this field list because we don't need it anymore
-                l_item.remove(fieldlist)
+        # 'numbered' and 'show_feedback' options should become classes
+        classes = self.options.setdefault("classes", [])
+        if self.options.get("numbered"):
+            classes.append("numbered")
+        if self.options.get("show_feedback"):
+            classes.append("show-feedback")
 
-            counter += 1
+    def create_choices_list(self, node: mcq) -> mcq_choices_list:
+        """Create list of answer choices."""
 
-    def wrap_choices(self, node: mcq):
-        counter = 0
-        for l_item in node.traverse(nodes.list_item):
-            mcq_choice_node = mcq_choice(
-                "",
-                self.answer_choices[counter],
-                *l_item.children,
-                mcq=node,
-                **l_item.attributes,
+        # Find the first enumerated list with enumtype 'upperalpha'
+        choices_enumlist = next(
+            iter(
+                node.traverse(
+                    lambda n: isinstance(n, nodes.enumerated_list)
+                    and n.get("enumtype") == "upperalpha"
+                )
             )
-            l_item.replace_self(mcq_choice_node)
+        )
+        choices_list = _transform_enumerated_list(choices_enumlist)
+        self.add_name(choices_list)
 
-            counter += 1
+        self._replace_li_with_mcq_choice(choices_list)
+        choices_enumlist.replace_self(choices_list)
+
+        return choices_list
+
+    def _replace_li_with_mcq_choice(self, choices_list: mcq_choices_list) -> None:
+        """"Replace list_item in mcq_choices_list with mcq_choice nodes."""
+
+        gen_index = iter(self.choice_indexes)
+        for list_item in choices_list.children:
+            choice_node = _transform_list_item(list_item)
+            choice_node["mcq_id"] = f"{self.options.get('name')}"
+            choice_node["value"] = next(gen_index)
+
+            # Collect feedback from choice first. We use field_list markup for
+            # annotating feedback.
+            if feedback_field_list := _list_with_field_feedback(list_item):
+                feedback_node = _transform_field_list(feedback_field_list)
+
+                # Since we don't actually want to render feedback as HTML,
+                # remove the field list.
+                choice_node.remove(feedback_field_list)
+            else:
+                feedback_node = mcq_choice_feedback("", nodes.paragraph("", ""))
+
+            feedback_node["is_correct"] = choice_node["value"] == self.options.get(
+                "answer"
+            )
+            choice_node += feedback_node
+
+            # Now we can replace list_item
+            list_item.replace_self(choice_node)
+
+            self.add_name(choice_node)
 
     def run(self) -> List[mcq]:
+        """Build an mcq node.
+
+        Contents of mcq node/hierarchy should be:
+
+        - mcq_body
+          - children
+        - mcq_choices_list
+          - mcq_choice
+            - children
+            - mcq_feedback
+        """
+
         node = mcq("\n".join(self.content), **self.options)
-        node["answer"] = self.options.get("answer", "")
-
-        textnodes, _ = self.state.inline_text(self.arguments[0], self.lineno)
-        node += nodes.paragraph(self.arguments[0], "", *textnodes)
-
         self.add_name(node)
 
-        body = nodes.container("\n".join(self.content))
-        self.state.nested_parse(self.content, self.content_offset, body)
-        node += body
+        # First argument becomes the first paragraph of the question
+        textnodes, _ = self.state.inline_text(self.arguments[0], self.lineno)
+        first_paragraph = nodes.paragraph(self.arguments[0], "", *textnodes)
 
-        self.collect_feedback(node)
-        self.wrap_choices(node)
+        body = mcq_body("\n".join(self.content))
+        self.state.nested_parse(self.content, self.content_offset, body)
+        choices_list = self.create_choices_list(body)
+        body.remove(choices_list)
+
+        # Rearrange body.children so it starts with first_paragraph followed
+        # by the rest of body.children. Then we can add body to node's children.
+        body.children = [first_paragraph, *body.children]
+        node += body
+        node += choices_list
 
         return [node]
 
 
-def visit_mcq(self, node: mcq):
-    """Visit mcq."""
+def add_feedback_to_choices(app, answerkey: AnswerKey, doctree: nodes.document) -> None:
+    """For questions where show_feedback is True, store feedback in choice
+    nodes.
 
-    if getattr(self, "_mcq_count", None) is None:
-        self._mcq_count = 0
+        Since this relies on answerkey data, you should register this function as a callback on the event "mcq-answerkey-created" ("mcq-answerkey-created" is a custom event, not a builtin one).
+    """
 
-    self._mcq_count += 1
+    for node in doctree.traverse(mcq):
+        if node.get("show_feedback"):
+            mcq_id = node.get("ids")[0]
 
-    mcq_id = f"mcq-{self._mcq_count}"
-    ans = node["answer"].lower()
-    feedback = html.escape(json.dumps(node["feedback"]), quote=True)
-
-    self.body.append(
-        f'<div class="mcq" data-id="{mcq_id}" data-ans="{ans}" data-feedback="{feedback}">'
-    )
-
-
-def depart_mcq(self, node: mcq):
-    """Depart mcq."""
-
-    self.body.append('<button class="mcq-answer-checker">Check Answer</button>')
-    self.body.append('<p class="mcq-alert"></p>')
-    self.body.append("</div>")
-
-
-def visit_mcq_choice(self, node: mcq_choice):
-    """Visit mcq_choice."""
-
-    mcq_id = f"mcq-{self._mcq_count}"
-    input_id = f"{mcq_id}-{node.value}"
-
-    self.body.append(f'<div class="mcq-answer-group">')
-    self.body.append(
-        f'<input id="{input_id}" type="radio" name="{mcq_id}" value="{node.value}" />'
-    )
-    self.body.append(f'<label for="{input_id}">')
-    self.body.append("<li>")
-
-
-def depart_mcq_choice(self, node: mcq_choice):
-    self.body.append("</li>")
-    self.body.append("</label>")
-    self.body.append("</div>")
+            choices_list = node.children[-1]
+            choices_data = answerkey.question_lookup[mcq_id].choices
+            for choice, choice_data in zip(choices_list, choices_data):
+                choice["data_attrs"] = {
+                    "data-is-correct": choice_data.feedback.is_correct,
+                    "data-feedback": json.dumps({"html": choice_data.feedback.html}),
+                }
 
 
 def setup(app: Sphinx):
-    app.add_node(mcq, handouts=(visit_mcq, depart_mcq))
-    app.add_node(mcq_choice, handouts=(visit_mcq_choice, depart_mcq_choice))
+    app.add_event("mcq-answerkey-created")
+    app.connect("mcq-answerkey-created", add_feedback_to_choices)
+
     app.add_directive("mcq", Mcq)
+
+    answerkey.setup(app)
+    mcqnodes.setup(app)
+    scantron.setup(app)
