@@ -5440,6 +5440,10 @@ pre {
       list-style: none;
       padding: 0;
       counter-reset: lictr; }
+      .docexample .docexample-render ol ol {
+        padding-left: 1.2em; }
+      .docexample .docexample-render ol ul {
+        padding-left: 2.25em; }
       .docexample .docexample-render ol li {
         counter-increment: lictr;
         padding-left: 0.5em; }
@@ -5448,7 +5452,7 @@ pre {
           content: counter(lictr, var(--listCounterStyle)) ".";
           margin-right: 0.25em;
           font-weight: bold; }
-        .docexample .docexample-render ol li > * {
+        .docexample .docexample-render ol li > *:not(ul):not(ol) {
           margin-left: 1em !important; }
     .docexample .docexample-render dt {
       font-weight: bold; }
@@ -5829,12 +5833,21 @@ pre {
       .docexample .docexample-render .mcq > p:first-child {
         margin-bottom: 0.25em; }
       .docexample .docexample-render .mcq ol {
-        margin: 0; }
+        margin: 0;
+        margin-bottom: 1em; }
+      .docexample .docexample-render .mcq.numbered {
+        counter-increment: mcqcounter; }
+        .docexample .docexample-render .mcq.numbered > .mcq-body > *:first-child::before {
+          content: counter(mcqcounter) ") ";
+          font-weight: bold;
+          font-size: 1.3em; }
     .docexample .docexample-render .mcq-answer-group {
       display: flex;
       align-items: center; }
-      .docexample .docexample-render .mcq-answer-group:hover {
+      .show-feedback .docexample .docexample-render .mcq-answer-group:hover {
         background-color: var(--hllBg); }
+      .docexample .docexample-render .mcq-answer-group li {
+        width: 100%; }
       .docexample .docexample-render .mcq-answer-group input[type='radio'] {
         margin-top: 0;
         margin-bottom: 0; }
@@ -5866,10 +5879,15 @@ pre {
       background-color: var(--mcqAlertBg);
       color: var(--mcqAlertColor);
       display: flex;
-      align-items: center; }
+      align-items: center;
+      line-height: 1.2em;
+      font-size: 90%; }
       .docexample .docexample-render .mcq-alert::before {
         content: var(--mcqAlertPrefix);
         margin-right: 0.5em; }
+      .docexample .docexample-render .mcq-alert dd {
+        margin: 0 !important;
+        padding: 0 !important; }
     .docexample .docexample-render .mcq p {
       margin-top: 0.5em; }
     .docexample .docexample-render .admonition {
