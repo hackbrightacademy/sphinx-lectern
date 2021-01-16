@@ -8,9 +8,7 @@ sass.compiler = require('node-sass');
 
 const sassBuild = (entrypoint, destpath = '../site/theme/static') => {
   return () => {
-    return src(entrypoint)
-      .pipe(sass().on('error', sass.logError))
-      .pipe(dest(destpath));
+    return src(entrypoint).pipe(sass().on('error', sass.logError)).pipe(dest(destpath));
   };
 };
 
@@ -53,9 +51,7 @@ const handouts = parallel(
   css('./styles/handouts.css', 'handouts/static/main.css')
 );
 
-const book = parallel(
-  css('./styles/book.css', 'book.css', '.')
-);
+const book = parallel(css('./styles/book.css', 'book.css', '.'));
 
 const docs = parallel(
   js('./scripts/docs.js', 'static/main.js', '../site/theme'),
