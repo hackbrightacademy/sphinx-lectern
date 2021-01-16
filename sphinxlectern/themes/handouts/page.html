@@ -11,6 +11,13 @@
       type="text/css"
     />
     <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css" />
+    {%- for css in css_files %}
+      {%- if css|attr("filename") %}
+        {{ css_tag(css) }}
+      {%- else %}
+        <link rel="stylesheet" href="{{ pathto(css, 1)|e }}" type="text/css" />
+      {%- endif %}
+    {%- endfor %}
 
     <script src="{{ pathto('_static/pdfobject.min.js', 1) }}"></script>
   </head>
@@ -60,5 +67,8 @@
     </div>
 
     <script src="{{ pathto('_static/main.js', 1) }}"></script>
+    {%- for js in script_files %}
+      {{ js_tag(js) }}
+    {%- endfor %}
   </body>
 </html>
