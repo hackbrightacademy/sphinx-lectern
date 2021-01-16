@@ -1,4 +1,4 @@
-"""sphinxlectern.common.pdf
+"""sphinxlectern.pdf
 
 Embed PDF files into a document.
 
@@ -24,6 +24,7 @@ class PdfObject(Directive):
     final_argument_whitespace = False
     has_content = False
     required_arguments = 1
+    js_added = False
 
     @staticmethod
     def assert_is_pdf(path: str) -> None:
@@ -32,6 +33,9 @@ class PdfObject(Directive):
         # TODO: Use pathlib to parse path & check suffix
 
     def run(self) -> List[Node]:
+        if not self.js_added:
+            self.app.add_js_file(self.app.config.pdfobject_js_url)
+
         pdf_path = self.arguments[0]
 
         try:
@@ -70,6 +74,12 @@ def depart_pdfobject(self, node: Node) -> None:
 
 
 def setup(app: Sphinx) -> None:
+    app.add_config_value(
+        "pdfobject_js_url",
+        "https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.4/pdfobject.min.js",
+        "env",
+    )
+
     app.add_node(
         pdfobject,
         html=(visit_pdfobject, depart_pdfobject),

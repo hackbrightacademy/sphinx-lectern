@@ -9,6 +9,7 @@ from . import (
     themes,
     writers,
     mcq,
+    pdf,
 )
 from .transformers import references
 
@@ -20,4 +21,4 @@ def setup(app: Sphinx) -> None:
     themes.setup(app)
     writers.setup(app)
     references.setup(app)
-    mcq.setup(app)
+    pdf.setup(app)
