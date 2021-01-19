@@ -52,7 +52,7 @@ def setup(app: Sphinx) -> None:
         togglereveal,
         html=(visit_togglereveal, depart_togglereveal),
         handouts=(visit_togglereveal, depart_togglereveal),
-        revealjs=(ignore_togglereveal, None),
+        revealjs=(ignore_togglereveal, None),  # type: ignore
     )
     app.add_directive("togglereveal", ToggleReveal)
     app.add_directive("toggle", ToggleReveal)

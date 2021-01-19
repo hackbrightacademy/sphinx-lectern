@@ -36,8 +36,8 @@ def ignore_speakernote(self, node: nodes.Node) -> None:
 def setup(app: Sphinx) -> None:
     app.add_node(
         speakernote,
-        html=(ignore_speakernote, None),
-        handouts=(ignore_speakernote, None),
+        html=(ignore_speakernote, None),  # type: ignore
+        handouts=(ignore_speakernote, None),  # type: ignore
         revealjs=(visit_speakernote, depart_speakernote),
     )
     app.add_directive("speaker", Speakernote)

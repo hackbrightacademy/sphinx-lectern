@@ -73,8 +73,8 @@ def ignore_interslide(self, node: nodes.Node) -> None:
 def setup(app: Sphinx) -> None:
     app.add_node(
         interslide,
-        html=(ignore_interslide, None),
-        handouts=(ignore_interslide, None),
+        html=(ignore_interslide, None),  # type: ignore
+        handouts=(ignore_interslide, None),  # type: ignore
         revealjs=(visit_interslide, depart_interslide),
     )
     app.add_directive("interslide", Interslide)

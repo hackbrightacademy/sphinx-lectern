@@ -6,7 +6,7 @@ from sphinx.application import Sphinx
 from docutils import nodes
 
 
-class UsesNameAsClass:
+class UsesNameAsClass(nodes.Node):
     """A mixin that adds self.classname to the node's list of classes."""
 
     classname: Optional[str] = None
@@ -111,5 +111,5 @@ def setup(app: Sphinx):
     )
     app.add_node(
         mcq_choice_feedback,
-        handouts=(visit_mcq_choice_feedback, None),
+        handouts=(visit_mcq_choice_feedback, None),  # type: ignore
     )

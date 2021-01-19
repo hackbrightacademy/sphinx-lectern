@@ -2,31 +2,7 @@
 
 Multiple-choice questions.
 
-Note that you MUST use upperalpha enumerated lists to list the answer choices.
-Other types of lists won't work.
-
-Example:
-
-  .. mcq:: The differences between natural and formal languages include:
-    :answer: B
-
-    A. Natural languages can be parsed while formal languages cannot
-
-       :feedback: Actually both languages can be parsed (determining the structure of the
-                  sentence), but formal languages can be parsed more easily in software.
-
-    B. Ambiguity, redundancy, and literalness
-
-       :feedback: All of these can be resent in natural languages, but cannot exist in
-                  formal languages
-
-    C. There are no differences between natural and formal languages
-
-       :feedback: There are several differences between the two but they are also similar
-
-    D. Tokens, structure, syntax, and semantics
-
-       :feedback: These are the similarities between the two
+For examples, see tests/examples/text_mcq/index.rst.
 """
 
 from typing import List, Union, Optional
