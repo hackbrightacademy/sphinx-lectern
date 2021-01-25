@@ -23,7 +23,7 @@ templates_path = ["_templates"]
 extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.ifconfig",
-    "sphinx.ext.imgmath",
+    "sphinx.ext.mathjax",
     # "matplotlib.sphinxext.plot_directive",
     "sphinxlectern",
 ]
@@ -74,18 +74,18 @@ plot_html_show_source_link = False
 plot_html_show_formats = False
 plot_formats = ["png"]
 
-if "matplotlib.sphinxext.plot_directive" in extensions:
-    from matplotlib.sphinxext import plot_directive
+# if "matplotlib.sphinxext.plot_directive" in extensions:
+#     from matplotlib.sphinxext import plot_directive
 
-    plot_directive.TEMPLATE = """
-{{ source_code }}
+#     plot_directive.TEMPLATE = """
+# {{ source_code }}
 
-.. only:: html
+# .. only:: html
 
-  .. image:: {{ build_dir }}/{{ images[0].basename }}.png
-    {% for option in options -%}
-      {{ option }}
-    {% endfor %}
+#   .. image:: {{ build_dir }}/{{ images[0].basename }}.png
+#     {% for option in options -%}
+#       {{ option }}
+#     {% endfor %}
 
-  {{ caption }}
-"""
+#   {{ caption }}
+# """
