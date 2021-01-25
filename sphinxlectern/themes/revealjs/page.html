@@ -1,26 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ title }} | {{ docstitle|e }}</title>
-    <link href="{{ pathto('_static/pygments.css', 1) }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css"/>
+    <link
+      href="{{ pathto('_static/pygments.css', 1) }}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css" />
+    {%- for css in css_files %} {%- if css|attr("filename") %} {{ css_tag(css) }} {%- else
+    %}
+    <link rel="stylesheet" href="{{ pathto(css, 1)|e }}" type="text/css" />
+    {%- endif %} {%- endfor %}
   </head>
   <body>
     {% block document %}
-      <div class="reveal">
-        <div class="slides">
-          <section>
-            <h2>{{ title }}</h2>
-            <div class="event">{{ version }}</div>
-          </section>
-          {{ body }}
-        </div>
-        <footer id="slide-footer"></footer>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h2>{{ title }}</h2>
+          <div class="event">{{ version }}</div>
+        </section>
+        {{ body }}
       </div>
+      <footer id="slide-footer"></footer>
+    </div>
     {% endblock document %}
 
     <script src="{{ pathto('_static/main.js', 1)}}"></script>
+    {%- for js in script_files %} {{ js_tag(js) }} {%- endfor %}
   </body>
 </html>
