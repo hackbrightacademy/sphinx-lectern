@@ -166,7 +166,8 @@ def create_answerkey(app, doctree, docname) -> None:
     """
 
     answerkey = AnswerKey.from_doctree(doctree, app.builder)
-    app.emit("mcq-answerkey-created", answerkey, doctree)
+    if answerkey.questions:
+        app.emit("mcq-answerkey-created", answerkey, doctree)
 
 
 def build_answerkey(app, answerkey: AnswerKey, _) -> None:

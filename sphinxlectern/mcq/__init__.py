@@ -152,7 +152,8 @@ class Mcq(SphinxDirective):
 
             # Collect feedback from choice first. We use field_list markup for
             # annotating feedback.
-            if feedback_field_list := _list_with_field_feedback(list_item):
+            feedback_field_list = _list_with_field_feedback(list_item)
+            if feedback_field_list:
                 feedback_node = _transform_field_list(feedback_field_list)
 
                 # Since we don't actually want to render feedback as HTML,
