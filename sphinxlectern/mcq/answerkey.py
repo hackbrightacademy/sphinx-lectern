@@ -52,7 +52,9 @@ class McqChoice:
     feedback: McqFeedback = field(default_factory=McqFeedback)
 
     @classmethod
-    def from_node(cls, node: mcqnodes.mcq_choice, builder: Builder) -> "McqChoice":
+    def from_node(
+        cls, node: mcqnodes.mcq_choice, builder: Builder
+    ) -> "McqChoice":
         """Extract data from a mcq_choice node."""
 
         # Find children of mcq_choice that aren't feedback.
@@ -109,12 +111,16 @@ class AnswerKey:
     def question_lookup(self) -> Dict[str, McqQuestion]:
         if not getattr(self, "_questions_lookup", None):
             self._questions_lookup = {
-                question.id: question for question in self.questions if question.id
+                question.id: question
+                for question in self.questions
+                if question.id
             }
         return self._questions_lookup
 
     @classmethod
-    def from_doctree(cls, doctree: nodes.document, builder: Builder) -> "AnswerKey":
+    def from_doctree(
+        cls, doctree: nodes.document, builder: Builder
+    ) -> "AnswerKey":
         """Create answer key from doctree."""
 
         # questions will be used to instantiate an AnswerKey
@@ -124,8 +130,12 @@ class AnswerKey:
 
             # Populate question.choices from the list of mcq_choice nodes in mcq.
             # Each choice contains text of the answer choice as well as any feedback.
-            choices_list = mcq.children[1]
-            for choice in choices_list.children:
+            try:
+                choices_list_items = mcq.children[1].children
+            except IndexError:
+                choices_list_items = []
+
+            for choice in choices_list_items:
                 choice_data = McqChoice.from_node(choice, builder)
 
                 # Find feedback node and attach its data to choice_data
@@ -179,7 +189,9 @@ def build_answerkey(app, answerkey: AnswerKey, _) -> None:
     if not app.config.mcq_build_answerkey:
         return
 
-    outpath = path.join(app.builder.outdir, os_path(app.config.mcq_answerkey_file))
+    outpath = path.join(
+        app.builder.outdir, os_path(app.config.mcq_answerkey_file)
+    )
     answerkey.write_to_file(outpath)
 
 
