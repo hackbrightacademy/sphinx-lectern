@@ -13,14 +13,23 @@ import json
 import html
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.docfields import _is_single_paragraph
+from sphinx.util import logging
 
 from docutils import nodes
 from docutils.parsers.rst import directives
 
 from . import mcqnodes, answerkey, scantron
 
-from .mcqnodes import mcq, mcq_body, mcq_choices_list, mcq_choice, mcq_choice_feedback
+from .mcqnodes import (
+    mcq,
+    mcq_body,
+    mcq_choices_list,
+    mcq_choice,
+    mcq_choice_feedback,
+)
 from .answerkey import AnswerKey
+
+logger = logging.getLogger(__name__)
 
 
 def _list_with_field_feedback(node: nodes.Node) -> Optional[nodes.field_list]:
@@ -60,7 +69,9 @@ def _transform_field_list(
     return mcq_choice_feedback("", nodes.paragraph("", "", *content))
 
 
-def _transform_enumerated_list(node: nodes.enumerated_list) -> mcq_choices_list:
+def _transform_enumerated_list(
+    node: nodes.enumerated_list,
+) -> mcq_choices_list:
     """Transform enumerated_list node into mcq_choices_list."""
 
     choices_node = mcq_choices_list("")
@@ -125,14 +136,21 @@ class Mcq(SphinxDirective):
         """Create list of answer choices."""
 
         # Find the first enumerated list with enumtype 'upperalpha'
-        choices_enumlist = next(
-            iter(
-                node.traverse(
-                    lambda n: isinstance(n, nodes.enumerated_list)
-                    and n.get("enumtype") == "upperalpha"
+        try:
+            choices_enumlist = next(
+                iter(
+                    node.traverse(
+                        lambda n: isinstance(n, nodes.enumerated_list)
+                        and n.get("enumtype") == "upperalpha"
+                    )
                 )
             )
-        )
+        except StopIteration:
+            logger.warning(
+                f"MCQ '{self.arguments[0]}' around line {self.lineno} does not have a list of answer choices."
+            )
+            return
+
         choices_list = _transform_enumerated_list(choices_enumlist)
         self.add_name(choices_list)
 
@@ -141,7 +159,9 @@ class Mcq(SphinxDirective):
 
         return choices_list
 
-    def _replace_li_with_mcq_choice(self, choices_list: mcq_choices_list) -> None:
+    def _replace_li_with_mcq_choice(
+        self, choices_list: mcq_choices_list
+    ) -> None:
         """"Replace list_item in mcq_choices_list with mcq_choice nodes."""
 
         gen_index = iter(self.choice_indexes)
@@ -160,11 +180,13 @@ class Mcq(SphinxDirective):
                 # remove the field list.
                 choice_node.remove(feedback_field_list)
             else:
-                feedback_node = mcq_choice_feedback("", nodes.paragraph("", ""))
+                feedback_node = mcq_choice_feedback(
+                    "", nodes.paragraph("", "")
+                )
 
-            feedback_node["is_correct"] = choice_node["value"] == self.options.get(
-                "answer"
-            )
+            feedback_node["is_correct"] = choice_node[
+                "value"
+            ] == self.options.get("answer")
             choice_node += feedback_node
 
             # Now we can replace list_item
@@ -195,18 +217,22 @@ class Mcq(SphinxDirective):
         body = mcq_body("\n".join(self.content))
         self.state.nested_parse(self.content, self.content_offset, body)
         choices_list = self.create_choices_list(body)
-        body.remove(choices_list)
+        if choices_list:
+            body.remove(choices_list)
 
         # Rearrange body.children so it starts with first_paragraph followed
         # by the rest of body.children. Then we can add body to node's children.
         body.children = [first_paragraph, *body.children]
         node += body
-        node += choices_list
+        if choices_list:
+            node += choices_list
 
         return [node]
 
 
-def add_feedback_to_choices(app, answerkey: AnswerKey, doctree: nodes.document) -> None:
+def add_feedback_to_choices(
+    app, answerkey: AnswerKey, doctree: nodes.document
+) -> None:
     """For questions where show_feedback is True, store feedback in choice
     nodes.
 
@@ -222,7 +248,9 @@ def add_feedback_to_choices(app, answerkey: AnswerKey, doctree: nodes.document) 
             for choice, choice_data in zip(choices_list, choices_data):
                 choice["data_attrs"] = {
                     "data-is-correct": choice_data.feedback.is_correct,
-                    "data-feedback": json.dumps({"html": choice_data.feedback.html}),
+                    "data-feedback": json.dumps(
+                        {"html": choice_data.feedback.html}
+                    ),
                 }
 
 
