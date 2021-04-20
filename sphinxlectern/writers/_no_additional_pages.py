@@ -4,6 +4,10 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 class DontBuildAdditionalPages(StandaloneHTMLBuilder):
     """Skip all the stuff around building additional pages, etc."""
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fignumbers = {}
+
     def finish(self) -> None:
         """Override StandaloneHTMLBuilder.finish."""
 
