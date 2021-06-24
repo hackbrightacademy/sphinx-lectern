@@ -5709,10 +5709,9 @@ pre {
     @media print {
       .docexample .docexample-render main {
         margin: 1in; }
-      .docexample .docexample-render .section > .section, .docexample .docexample-render table {
-        page-break-inside: avoid; }
-      .docexample .docexample-render main > .section, .docexample .docexample-render .toctree-wrapper.compound > .section {
-        page-break-after: always; } }
+      .docexample .docexample-render .section > .section,
+      .docexample .docexample-render table {
+        page-break-inside: avoid; } }
     .docexample .docexample-render .note {
       --titleBg: #1e81c4;
       --titleColor: white;
