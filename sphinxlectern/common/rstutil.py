@@ -72,6 +72,15 @@ EDITOR_SUBSTITUTIONS = """
 """
 
 
+def build_substitutions(substitutions: dict):
+    """Convert key-value pairs in `substitutions` to RST."""
+
+    subs = [
+        f".. |{key}| replace:: {val}" for key, val in substitutions.items()
+    ]
+    return "\n".join(subs)
+
+
 def add_rst_prolog(app, config):
     """Add roles to config.rst_prolog."""
 
@@ -87,9 +96,16 @@ def add_rst_epilog(app, config):
     if not config.rst_epilog:
         config.rst_epilog = ""
 
-    config.rst_epilog += SYMBOLS + PYTHON_SUBSTITUTIONS + EDITOR_SUBSTITUTIONS
+    config.rst_epilog += (
+        SYMBOLS
+        + PYTHON_SUBSTITUTIONS
+        + EDITOR_SUBSTITUTIONS
+        + build_substitutions(config.lectern_substitutions)
+    )
 
 
 def setup(app: Sphinx) -> None:
+    app.add_config_value("lectern_substitutions", {}, "env")
+
     app.connect("config-inited", add_rst_prolog)
     app.connect("config-inited", add_rst_epilog)
