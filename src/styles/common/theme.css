@@ -232,6 +232,7 @@ code,
 code {
   padding: 0 5px;
   color: var(--brandColor);
+  background: white;
 }
 
 .literal-block,
