@@ -2,6 +2,8 @@
 Displaying Code Examples
 ========================
 
+Go to `this link </prework>`_
+
 Displaying Code w/ `code-block` Directive
 =========================================
 
@@ -69,10 +71,3 @@ Adding Captions
       <p>Hi</p>
     );
   }
-
-.. mcq:: Hi
-  :answer: A
-
-  A. Wow
-
-     :feedback: Wow
