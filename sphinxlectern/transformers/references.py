@@ -7,7 +7,10 @@ def apply_target_to_ext(app: Sphinx, doctree: nodes.document) -> None:
     for ref in doctree.traverse(nodes.reference):
         if "refuri" in ref:
             urlparts = urlparse(ref["refuri"])
-            if urlparts.hostname and urlparts.hostname != app.config.hb_hostname:
+            if (
+                urlparts.hostname
+                and urlparts.hostname != app.config.hb_hostname
+            ):
                 ref["target"] = "_blank"
 
 
