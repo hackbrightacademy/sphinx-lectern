@@ -27,6 +27,12 @@
   --titlePrefix: 'Warning: ';
 }
 
+.error {
+  --titleBg: #f14668;
+  --titleColor: white;
+  --titlePrefix: 'Error: ';
+}
+
 .knowledge_check {
   --titleBg: var(--purple);
   --titleColor: white;
