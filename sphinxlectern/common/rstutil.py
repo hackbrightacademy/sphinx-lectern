@@ -45,32 +45,6 @@ SYMBOLS = """
 .. |super2| unicode:: U+000B2 .. SUPERSCRIPT 2
 """
 
-PYTHON_SUBSTITUTIONS = """
-.. |py| replace:: python3
-.. |pyname| replace:: Python 3
-.. |pyi| replace:: `python3`
-.. |pycmd| replace:: `python3`:cmd:
-
-.. |ipy| replace:: ipython3
-.. |ipyi| replace:: `ipython3`
-.. |ipycmd| replace:: `ipython3`:cmd:
-
-.. |pip|       replace:: pip3
-.. |pipi|      replace:: `pip3`
-.. |pipcmd|    replace:: `pip3`:cmd:
-
-.. |venv|      replace:: virtualenv
-.. |venvi|     replace:: `virtualenv`
-.. |venvcmd|   replace:: `virtualenv`:cmd:
-"""
-
-EDITOR_SUBSTITUTIONS = """
-.. |editor|    replace:: subl
-.. |editori|   replace:: `subl`
-.. |editcmd|   replace:: `subl`:cmd:
-.. |editorname|  replace:: Sublime Text
-"""
-
 
 def build_substitutions(substitutions: dict):
     """Convert key-value pairs in `substitutions` to RST."""
@@ -96,11 +70,8 @@ def add_rst_epilog(app, config):
     if not config.rst_epilog:
         config.rst_epilog = ""
 
-    config.rst_epilog += (
-        SYMBOLS
-        + PYTHON_SUBSTITUTIONS
-        + EDITOR_SUBSTITUTIONS
-        + build_substitutions(config.lectern_substitutions)
+    config.rst_epilog += SYMBOLS + build_substitutions(
+        config.lectern_substitutions
     )
 
 
