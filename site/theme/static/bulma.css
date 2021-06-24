@@ -5440,8 +5440,9 @@ pre {
       list-style: none;
       padding: 0;
       counter-reset: lictr; }
-      .docexample .docexample-render ol ol {
-        padding-left: 1.2em; }
+      .docexample .docexample-render ol .upperalpha,
+      .docexample .docexample-render ol .arabic {
+        padding-left: 0.6em; }
       .docexample .docexample-render ol ul {
         padding-left: 2.25em; }
       .docexample .docexample-render ol > li {

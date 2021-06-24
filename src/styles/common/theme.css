@@ -52,8 +52,9 @@ ol {
   padding: 0;
   counter-reset: lictr;
 
-  ol {
-    padding-left: 1.2em;
+  .upperalpha,
+  .arabic {
+    padding-left: 0.6em;
   }
 
   ul {
