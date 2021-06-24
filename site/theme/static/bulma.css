@@ -5444,15 +5444,15 @@ pre {
         padding-left: 1.2em; }
       .docexample .docexample-render ol ul {
         padding-left: 2.25em; }
-      .docexample .docexample-render ol li {
+      .docexample .docexample-render ol > li {
         counter-increment: lictr;
         padding-left: 0.5em; }
-        .docexample .docexample-render ol li:before {
+        .docexample .docexample-render ol > li:before {
           float: left;
           content: counter(lictr, var(--listCounterStyle)) ".";
           margin-right: 0.25em;
           font-weight: bold; }
-        .docexample .docexample-render ol li > *:not(ul):not(ol) {
+        .docexample .docexample-render ol > li > *:not(ul):not(ol) {
           margin-left: 1em !important; }
     .docexample .docexample-render dt {
       font-weight: bold; }
@@ -5544,7 +5544,8 @@ pre {
       border: 1px solid var(--gray); }
     .docexample .docexample-render code {
       padding: 0 5px;
-      color: var(--brandColor); }
+      color: var(--brandColor);
+      background: white; }
     .docexample .docexample-render .literal-block,
     .docexample .docexample-render .highlight,
     .docexample .docexample-render div[class*='highlight-'] {
@@ -5728,6 +5729,10 @@ pre {
       --titleBg: #f14668;
       --titleColor: white;
       --titlePrefix: 'Warning: '; }
+    .docexample .docexample-render .error {
+      --titleBg: #f14668;
+      --titleColor: white;
+      --titlePrefix: 'Error: '; }
     .docexample .docexample-render .knowledge_check {
       --titleBg: var(--purple);
       --titleColor: white;
