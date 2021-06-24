@@ -21,10 +21,10 @@
 
 ```shell
 # With pipenv
-pipenv install -e git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
+pipenv install -e git+https://github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
 
 # With pip
-pip install git+ssh://git@github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
+pip install git+https://github.com/hackbrightacademy/sphinx-lectern.git#egg=sphinx-lectern
 ```
 
 ## 📚 Docs
