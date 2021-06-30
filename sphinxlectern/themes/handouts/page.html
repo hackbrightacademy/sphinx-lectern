@@ -1,74 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ title }} | {{ docstitle|e }}</title>
+    {%- block head %}
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>{{ title }} | {{ docstitle|e }}</title>
 
-    <link
-      href="{{ pathto('_static/pygments.css', 1) }}"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css" />
-    {%- for css in css_files %}
-      {%- if css|attr("filename") %}
-        {{ css_tag(css) }}
-      {%- else %}
-        <link rel="stylesheet" href="{{ pathto(css, 1)|e }}" type="text/css" />
-      {%- endif %}
-    {%- endfor %}
+      <link
+        href="{{ pathto('_static/pygments.css', 1) }}"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link href="{{ pathto('_static/' + style, 1) }}" rel="stylesheet" type="text/css" />
 
-    <script src="{{ pathto('_static/pdfobject.min.js', 1) }}"></script>
+      {%- for css in css_files %}
+        {%- if css|attr("filename") %}
+          {{ css_tag(css) }}
+        {%- else %}
+          <link rel="stylesheet" href="{{ pathto(css, 1)|e }}" type="text/css" />
+        {%- endif %}
+      {%- endfor %}
+
+      <script src="{{ pathto('_static/pdfobject.min.js', 1) }}"></script>
+      {% block extra_head %}{% endblock extra_head %}
+    {%- endblock head %}
   </head>
   <body>
-    <div id="handouts-container">
-      <header id="page-header">
-        <p id="project-title">{{ project }}</p>
-        <p id="page-title">{{ title }}</p>
-        {%- if theme_show_backlink %}
-        <p id="backlink">
-          <a href="{{ backurl }}"> &laquo; Back to Homepage </a>
-        </p>
-        {%- endif %}
-      </header>
+    {%- block body %}
+      <div id="handouts-container">
+        <header id="page-header">
+          {%- block page_header %}
+            <p id="project-title">{{ project }}</p>
+            <p id="page-title">{{ title }}</p>
 
-      <nav id="page-toc">{{ toc }}</nav>
-
-      <main id="page-content">
-        {%- if builder == 'handbook' %}
-        <nav class="chapter-nav">
-          <div class="chapter-prev">
-            {%- if prev %} ←
-            <a href="{{ prev.link|e }}">Previous Page</a>
+            {%- if theme_show_backlink %}
+              <p id="backlink">
+                <a href="{{ backurl }}"> &laquo; Back to Homepage </a>
+              </p>
             {%- endif %}
-          </div>
-          <div class="chapter-nav-title">
-            <span>Chapter Navigation</span>
-          </div>
-          <div class="chapter-next">
-            {%- if next %}
-            <a href="{{ next.link|e }}">Next Page</a>
-            → {%- endif %}
-          </div>
-        </nav>
-        {%- endif %} {%- if builder == 'singlepage' %}
-        <div id="body-toc" class="section">
-          <h1>{{ title }}</h1>
-          <h2>Table of Contents</h2>
-          {{ toc }}
-        </div>
-        {%- endif %} {% block document %} {{ body }} {% endblock document %}
-      </main>
+          {%- endblock page_header %}
+        </header>
 
-      <footer id="page-footer">
-        <p>&copy; {{ copyright }}</p>
-      </footer>
-    </div>
+        <nav id="page-toc">{% block page_toc %}{{ toc }}{% endblock page_toc %}</nav>
 
-    <script src="{{ pathto('_static/main.js', 1) }}"></script>
-    {%- for js in script_files %}
-      {{ js_tag(js) }}
-    {%- endfor %}
+        <main id="page-content">
+          {%- block before_document %}
+            {%- if builder == 'handbook' %}
+              <nav class="chapter-nav">
+                <div class="chapter-prev">
+                  {% if prev %}← <a href="{{ prev.link|e }}">Previous Page</a>{% endif %}
+                </div>
+                <div class="chapter-nav-title">
+                  <span>Chapter Navigation</span>
+                </div>
+                <div class="chapter-next">
+                  {% if next %}<a href="{{ next.link|e }}">Next Page</a> →{% endif %}
+                </div>
+              </nav>
+            {%- endif %}
+
+            {%- if builder == 'singlepage' %}
+              <div id="body-toc" class="section">
+                <h1>{{ title }}</h1>
+                <h2>Table of Contents</h2>
+                {{ toc }}
+              </div>
+            {%- endif %}
+          {%- endblock before_document %}
+
+          {%- block document %}
+            {{ body }}
+          {%- endblock document %}
+        </main>
+
+        <footer id="page-footer">
+          {%- block page_footer %}
+            <p>&copy; {{ copyright }}</p>
+          {%- endblock page_footer %}
+        </footer>
+      </div>
+
+      <script src="{{ pathto('_static/main.js', 1) }}"></script>
+
+      {%- for js in script_files %}
+        {{ js_tag(js) }}
+      {%- endfor %}
+
+    {%- endblock body %}
   </body>
 </html>
