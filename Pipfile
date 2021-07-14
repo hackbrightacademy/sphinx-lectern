@@ -16,3 +16,6 @@ jsx-lexer = "*"
 init = "githooks"
 build = "python3 setup.py sdist bdist_wheel"
 test = "pytest tests"
+
+[packages]
+sphinx = "*"
