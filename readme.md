@@ -32,3 +32,33 @@ pip install git+https://github.com/hackbrightacademy/sphinx-lectern.git#egg=sphi
 Wanna learn more? [Check out our docs here](docs/).
 
 Just... uh... don't be too disappointed that there's not much there 😬
+
+```python
+lectern_substitutions = {
+    # Python executable & version
+    "pyname": "Python 3",
+    "py": "python3",
+    "pyi": "`python3`",
+    "pycmd": "`python3`:cmd:",
+    # iPython
+    "ipyname": "IPython",
+    "ipy": "ipython3",
+    "ipyi": "`ipython3`",
+    "ipycmd": "`ipython3`:cmd:",
+    # PIP
+    "pipname": "Pip 3",
+    "pip": "pip3",
+    "pipi": "`pip3`",
+    "pipcmd": "`pip3`:cmd:",
+    # Virtualenv manager
+    "venvname": "Virtualenv",
+    "venv": "virtualenv",
+    "venvi": "`virtualenv`",
+    "venvcmd": "`virtualenv`:cmd:",
+    # Text editor
+    "editorname": "VS Code",
+    "editor": "code",
+    "editori": "`code`",
+    "editcmd": "`code`:cmd:",
+}
+```
