@@ -1,2 +1,2 @@
-recursive-include sphinxlectern/themes/handouts/*
-recursive-include sphinxlectern/themes/revealjs/*
+recursive-include sphinxlectern/themes/handouts *
+recursive-include sphinxlectern/themes/revealjs *
