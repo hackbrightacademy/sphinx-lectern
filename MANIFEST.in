@@ -1,0 +1,2 @@
+include sphinxlectern/themes/handouts/*
+include sphinxlectern/themes/revealjs/*
