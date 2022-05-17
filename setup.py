@@ -8,6 +8,7 @@ setuptools.setup(
     url="https://github.com/bootcampgang/sphinx-lectern",
     python_requires=">=3.6",
     packages=setuptools.find_packages(include=["sphinxlectern", "sphinxlectern.*"]),
+    include_package_data=True,
     entry_points={
         "sphinx.html_themes": [
             "revealjs = sphinxlectern.themes",
