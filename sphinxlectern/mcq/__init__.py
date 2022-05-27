@@ -109,9 +109,7 @@ class Mcq(SphinxDirective):
     }
     choice_indexes = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
+    def _init(self):
         if not getattr(self.env, "_mcq_count", None):
             self.env._mcq_count = 0
         self.env._mcq_count += 1
@@ -162,7 +160,7 @@ class Mcq(SphinxDirective):
     def _replace_li_with_mcq_choice(
         self, choices_list: mcq_choices_list
     ) -> None:
-        """"Replace list_item in mcq_choices_list with mcq_choice nodes."""
+        """ "Replace list_item in mcq_choices_list with mcq_choice nodes."""
 
         gen_index = iter(self.choice_indexes)
         for list_item in choices_list.children:
@@ -206,6 +204,8 @@ class Mcq(SphinxDirective):
             - children
             - mcq_feedback
         """
+
+        self._init()
 
         node = mcq("\n".join(self.content), **self.options)
         self.add_name(node)

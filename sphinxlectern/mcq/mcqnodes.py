@@ -52,13 +52,16 @@ def visit_mcq(self, node: mcq):
 
 def depart_mcq(self, node: mcq):
     if node.get("show_feedback"):
-        self.body.append('<button class="mcq-answer-checker">Check Answer</button>')
+        self.body.append(
+            '<button class="mcq-answer-checker">Check Answer</button>'
+        )
         self.body.append('<p class="mcq-alert"></p>')
 
     self.body.append("</div>")
 
 
 def visit_mcq_choices_list(self, node: mcq_choices_list):
+    self._mcq_choice_count = 0
     self.visit_enumerated_list(node)
 
 
@@ -67,12 +70,17 @@ def depart_mcq_choices_list(self, node: mcq_choices_list):
 
 
 def visit_mcq_choice(self, node: mcq_choice):
+    self._mcq_choice_count += 1
     self.body.append(f'<div class="mcq-answer-group">')
 
-    if node.parent.parent.get("show_feedback"):
-        input_id = nodes.make_id(f"{node.get('mcq_id')}-input")
+    mcq = node.parent.parent
+
+    if mcq.get("show_feedback"):
+        mcq_name = mcq["names"][0]
+
+        input_id = f"{mcq_name}-input-{self._mcq_choice_count}"
         self.body.append(
-            f'<input id="{input_id}" type="radio" name="{node.get("mcq_id")}" value="{node.get("value")}" />'
+            f'<input id="{input_id}" type="radio" name="{mcq_name}" value="{node.get("value")}" />'
         )
         self.body.append(f'<label for="{input_id}">')
 
